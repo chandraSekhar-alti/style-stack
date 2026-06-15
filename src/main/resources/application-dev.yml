@@ -1,0 +1,17 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/style_stack_dev
+    username: stylestack_dev_user
+    password: DevPassword@123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+    show-sql: true
+
+  flyway:
+    enabled: true

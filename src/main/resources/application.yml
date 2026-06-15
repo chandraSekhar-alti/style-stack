@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: style-stack-app
+
+  profiles:
+    active: dev
+
+  jackson:
+    default-property-inclusion: non_null
+
+server:
+  port: 8080
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 900000
+  refresh-expiration: 604800000

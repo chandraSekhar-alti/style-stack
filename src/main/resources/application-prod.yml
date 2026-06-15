@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://prod-rds:5432/style_stack_prod
+    username: stylestack_prod_user
+    password: StrongPassword@123
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+  flyway:
+    enabled: true
