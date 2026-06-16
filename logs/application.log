@@ -1,114 +1,24 @@
-2026-06-15 22:30:18 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 22:30:18 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 2172 (C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app)
-2026-06-15 22:30:18 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 22:30:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 22:30:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 39 ms. Found 0 JPA repository interfaces.
-2026-06-15 22:30:22 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-15 22:30:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-06-15 22:30:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 22:30:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 22:30:22 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 4030 ms
-2026-06-15 22:30:24 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 22:30:25 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
-----------------------------------------------------------------------------------------------------
-SQL State  : 28P01
-Error Code : 0
-Message    : FATAL: password authentication failed for user "postgres"
-
-2026-06-15 22:30:25 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2026-06-15 22:30:25 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 22:30:25 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
-----------------------------------------------------------------------------------------------------
-SQL State  : 28P01
-Error Code : 0
-Message    : FATAL: password authentication failed for user "postgres"
-
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
-	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
-----------------------------------------------------------------------------------------------------
-SQL State  : 28P01
-Error Code : 0
-Message    : FATAL: password authentication failed for user "postgres"
-
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309)
-	... 10 common frames omitted
-Caused by: org.flywaydb.core.internal.exception.sqlExceptions.FlywaySqlUnableToConnectToDbException: Unable to obtain connection from database: FATAL: password authentication failed for user "postgres"
-----------------------------------------------------------------------------------------------------
-SQL State  : 28P01
-Error Code : 0
-Message    : FATAL: password authentication failed for user "postgres"
-
-	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:78)
-	at org.flywaydb.core.internal.jdbc.JdbcConnectionFactory.<init>(JdbcConnectionFactory.java:76)
-	at org.flywaydb.core.FlywayExecutor.init(FlywayExecutor.java:275)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
-	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
-	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
-	... 17 common frames omitted
-Caused by: org.postgresql.util.PSQLException: FATAL: password authentication failed for user "postgres"
-	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:835)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.tryConnect(ConnectionFactoryImpl.java:307)
-	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:365)
-	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:52)
-	at org.postgresql.jdbc.PgConnection.<init>(PgConnection.java:290)
-	at org.postgresql.Driver.makeConnection(Driver.java:448)
-	at org.postgresql.Driver.connect(Driver.java:298)
-	at com.zaxxer.hikari.util.DriverDataSource.getConnection(DriverDataSource.java:144)
-	at com.zaxxer.hikari.pool.PoolBase.newConnection(PoolBase.java:373)
-	at com.zaxxer.hikari.pool.PoolBase.newPoolEntry(PoolBase.java:210)
-	at com.zaxxer.hikari.pool.HikariPool.createPoolEntry(HikariPool.java:488)
-	at com.zaxxer.hikari.pool.HikariPool.checkFailFast(HikariPool.java:576)
-	at com.zaxxer.hikari.pool.HikariPool.<init>(HikariPool.java:97)
-	at com.zaxxer.hikari.HikariDataSource.getConnection(HikariDataSource.java:111)
-	at org.flywaydb.core.internal.jdbc.JdbcUtils.openConnection(JdbcUtils.java:73)
-	... 24 common frames omitted
-2026-06-15 22:39:30 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 22:39:30 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 952 (C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app)
-2026-06-15 22:39:30 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 22:39:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 22:39:32 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 0 JPA repository interfaces.
-2026-06-15 22:39:33 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-15 22:39:33 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-06-15 22:39:33 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 22:39:33 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 22:39:33 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2302 ms
-2026-06-15 22:39:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 22:39:34 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@144a5e6e
-2026-06-15 22:39:34 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 22:39:34 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 22:39:34 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table "public"."flyway_schema_history" does not exist yet
-2026-06-15 22:39:34 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.073s)
-2026-06-15 22:39:34 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table "public"."flyway_schema_history" ...
-2026-06-15 22:39:34 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": << Empty Schema >>
-2026-06-15 22:39:34 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "1 - Create User Table"
-2026-06-15 22:39:34 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "2 - Create Role Table"
-2026-06-15 22:39:34 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.025s)
-2026-06-15 22:39:34 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 22:39:34 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 22:39:35 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 22:39:35 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-06-16 22:03:02 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
+2026-06-16 22:03:02 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 21080 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
+2026-06-16 22:03:02 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
+2026-06-16 22:03:03 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16 22:03:03 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2026-06-16 22:03:03 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-16 22:03:03 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-06-16 22:03:03 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-16 22:03:03 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-16 22:03:03 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1321 ms
+2026-06-16 22:03:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-16 22:03:04 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3b56947a
+2026-06-16 22:03:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-16 22:03:04 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
+2026-06-16 22:03:04 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.088s)
+2026-06-16 22:03:04 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 6
+2026-06-16 22:03:04 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
+2026-06-16 22:03:04 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16 22:03:04 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-16 22:03:04 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16 22:03:05 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_dev]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -120,60 +30,81 @@ Caused by: org.postgresql.util.PSQLException: FATAL: password authentication fai
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-06-15 22:39:36 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 22:39:36 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:39:36 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 22:39:37 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: ddfc1296-f1a5-4fe6-b948-72d32108da5d
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-06-15 22:39:37 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 22:39:38 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 22:39:38 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-06-15 22:39:38 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-2026-06-15 22:39:38 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:39:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 22:39:38 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 22:39:38 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2026-06-16 22:03:06 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16 22:03:06 [main] ERROR o.s.o.j.LocalContainerEntityManagerFactoryBean - Failed to initialize JPA EntityManagerFactory: Unable to build Hibernate SessionFactory  [persistence unit: default] ; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema validation: wrong column type encountered in column [id] in table [roles]; found [uuid (Types#OTHER)], but expecting [bigint (Types#BIGINT)]
+2026-06-16 22:03:06 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Unable to build Hibernate SessionFactory  [persistence unit: default] ; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema validation: wrong column type encountered in column [id] in table [roles]; found [uuid (Types#OTHER)], but expecting [bigint (Types#BIGINT)]
+2026-06-16 22:03:06 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-16 22:03:06 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-16 22:03:06 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-16 22:03:06 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 22:39:38 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Web server failed to start. Port 8080 was already in use.
-
-Action:
-
-Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
-
-2026-06-15 22:42:33 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 22:42:33 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 33404 (C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app)
-2026-06-15 22:42:33 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 22:42:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 22:42:35 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 16 ms. Found 0 JPA repository interfaces.
-2026-06-15 22:42:36 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-15 22:42:36 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-06-15 22:42:36 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 22:42:36 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 22:42:36 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2223 ms
-2026-06-15 22:42:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 22:42:37 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@65753724
-2026-06-15 22:42:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 22:42:37 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 22:42:37 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.088s)
-2026-06-15 22:42:37 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 2
-2026-06-15 22:42:37 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
-2026-06-15 22:42:37 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 22:42:37 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 22:42:38 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 22:42:38 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-06-16 22:03:06 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Unable to build Hibernate SessionFactory  [persistence unit: default] ; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema validation: wrong column type encountered in column [id] in table [roles]; found [uuid (Types#OTHER)], but expecting [bigint (Types#BIGINT)]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
+Caused by: jakarta.persistence.PersistenceException: Unable to build Hibernate SessionFactory  [persistence unit: default] ; nested exception is org.hibernate.tool.schema.spi.SchemaManagementException: Schema validation: wrong column type encountered in column [id] in table [roles]; found [uuid (Types#OTHER)], but expecting [bigint (Types#BIGINT)]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:448)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:411)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:419)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
+	... 15 common frames omitted
+Caused by: org.hibernate.tool.schema.spi.SchemaManagementException: Schema validation: wrong column type encountered in column [id] in table [roles]; found [uuid (Types#OTHER)], but expecting [bigint (Types#BIGINT)]
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateColumnType(AbstractSchemaValidator.java:163)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.validateTable(AbstractSchemaValidator.java:148)
+	at org.hibernate.tool.schema.internal.GroupedSchemaValidatorImpl.validateTables(GroupedSchemaValidatorImpl.java:42)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.performValidation(AbstractSchemaValidator.java:97)
+	at org.hibernate.tool.schema.internal.AbstractSchemaValidator.doValidation(AbstractSchemaValidator.java:75)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:278)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$1(SchemaManagementToolCoordinator.java:101)
+	at java.base/java.util.HashMap.forEach(HashMap.java:1421)
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:100)
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:35)
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:33)
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:327)
+	at org.hibernate.internal.SessionFactoryRegistry.instantiateSessionFactory(SessionFactoryRegistry.java:64)
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:458)
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1452)
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:93)
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:443)
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:436)
+	... 19 common frames omitted
+2026-06-16 22:05:10 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
+2026-06-16 22:05:10 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 13052 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
+2026-06-16 22:05:10 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
+2026-06-16 22:05:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16 22:05:11 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 3 JPA repository interfaces.
+2026-06-16 22:05:12 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-16 22:05:12 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-06-16 22:05:12 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-16 22:05:12 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-16 22:05:12 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1469 ms
+2026-06-16 22:05:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-16 22:05:13 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@92e2c93
+2026-06-16 22:05:13 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-16 22:05:13 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
+2026-06-16 22:05:13 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.080s)
+2026-06-16 22:05:13 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 6
+2026-06-16 22:05:13 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
+2026-06-16 22:05:13 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16 22:05:13 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-16 22:05:14 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16 22:05:14 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_dev]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -185,60 +116,81 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-06-15 22:42:39 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 22:42:39 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:42:39 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 22:42:40 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 8c491b39-c6e4-42ae-8dba-2af466650e32
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-06-15 22:42:40 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 22:42:40 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 22:42:40 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-06-15 22:42:40 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-2026-06-15 22:42:40 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:42:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 22:42:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 22:42:40 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2026-06-16 22:05:17 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16 22:05:17 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:05:17 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16 22:05:18 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16 22:05:18 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userSessionRepository' defined in com.example.stylestackapp.auth.repository.UserSessionRepository defined in @EnableJpaRepositories declared on DataJpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: interface com.example.stylestackapp.auth.repository.UserSessionRepository
+2026-06-16 22:05:18 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:05:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-16 22:05:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-16 22:05:18 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-16 22:05:18 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 22:42:40 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Web server failed to start. Port 8080 was already in use.
-
-Action:
-
-Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
-
-2026-06-15 22:44:15 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 22:44:15 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 33000 (C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\DemoCanDeleteLater\style-stack-app)
-2026-06-15 22:44:15 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 22:44:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 22:44:16 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 32 ms. Found 0 JPA repository interfaces.
-2026-06-15 22:44:17 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 22:44:18 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 22:44:18 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 22:44:18 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 22:44:18 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2770 ms
-2026-06-15 22:44:18 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 22:44:19 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@166ce247
-2026-06-15 22:44:19 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 22:44:19 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 22:44:19 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.066s)
-2026-06-15 22:44:19 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 2
-2026-06-15 22:44:19 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
-2026-06-15 22:44:19 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 22:44:19 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 22:44:20 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 22:44:20 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-06-16 22:05:18 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userSessionRepository' defined in com.example.stylestackapp.auth.repository.UserSessionRepository defined in @EnableJpaRepositories declared on DataJpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: interface com.example.stylestackapp.auth.repository.UserSessionRepository
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
+Caused by: java.lang.IllegalArgumentException: Not a managed type: interface com.example.stylestackapp.auth.repository.UserSessionRepository
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:254)
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:393)
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:84)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:92)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:73)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:270)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getRepositoryFragments(JpaRepositoryFactory.java:300)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getRepositoryFragments(JpaRepositoryFactory.java:280)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.lambda$getRepositoryStub$0(RepositoryFactorySupport.java:497)
+	at java.base/java.util.HashMap.computeIfAbsent(HashMap.java:1220)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepositoryStub(RepositoryFactorySupport.java:494)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:334)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$1(RepositoryFactoryBeanSupport.java:361)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:136)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:370)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
+	... 18 common frames omitted
+2026-06-16 22:06:06 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
+2026-06-16 22:06:06 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 7624 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
+2026-06-16 22:06:06 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
+2026-06-16 22:06:07 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16 22:06:07 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 3 JPA repository interfaces.
+2026-06-16 22:06:07 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-16 22:06:07 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-06-16 22:06:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-16 22:06:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-16 22:06:07 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1166 ms
+2026-06-16 22:06:07 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-16 22:06:07 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@30c8c6ab
+2026-06-16 22:06:07 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-16 22:06:07 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
+2026-06-16 22:06:08 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.022s)
+2026-06-16 22:06:08 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 6
+2026-06-16 22:06:08 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
+2026-06-16 22:06:08 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16 22:06:08 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-16 22:06:08 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16 22:06:08 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_dev]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -250,50 +202,81 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-06-15 22:44:20 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 22:44:21 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:44:21 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 22:44:22 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
+2026-06-16 22:06:09 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16 22:06:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:06:09 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16 22:06:09 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16 22:06:09 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userSessionRepository' defined in com.example.stylestackapp.auth.repository.UserSessionRepository defined in @EnableJpaRepositories declared on DataJpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: interface com.example.stylestackapp.auth.repository.UserSessionRepository
+2026-06-16 22:06:09 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:06:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-16 22:06:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-16 22:06:09 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-16 22:06:09 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
-Using generated security password: 5b59ba74-75c7-4730-8bb8-cd9861ab5f66
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-06-15 22:44:22 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 22:44:22 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 22:44:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2026-06-15 22:44:22 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2026-06-15 22:44:22 [main] INFO  c.e.s.StyleStackAppApplication - Started StyleStackAppApplication in 8.188 seconds (process running for 9.535)
-2026-06-15 22:44:23 [RMI TCP Connection(3)-192.168.0.109] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-15 22:44:23 [RMI TCP Connection(3)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-15 22:44:23 [RMI TCP Connection(3)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
-2026-06-15 22:45:14 [http-nio-8081-exec-1] WARN  o.a.c.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [246] milliseconds.
-2026-06-15 22:45:33 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-15 22:45:33 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-15 22:45:33 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:45:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 22:45:33 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 22:49:54 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 22:49:54 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 33404 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 22:49:54 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 22:49:55 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 22:49:56 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 26 ms. Found 0 JPA repository interfaces.
-2026-06-15 22:49:56 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 22:49:56 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 22:49:56 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 22:49:56 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 22:49:57 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2499 ms
-2026-06-15 22:49:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 22:49:57 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@51a719e7
-2026-06-15 22:49:57 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 22:49:57 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 22:49:58 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.061s)
-2026-06-15 22:49:58 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 2
-2026-06-15 22:49:58 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
-2026-06-15 22:49:58 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 22:49:58 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 22:49:59 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 22:49:59 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-06-16 22:06:09 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'userSessionRepository' defined in com.example.stylestackapp.auth.repository.UserSessionRepository defined in @EnableJpaRepositories declared on DataJpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: interface com.example.stylestackapp.auth.repository.UserSessionRepository
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
+	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
+Caused by: java.lang.IllegalArgumentException: Not a managed type: interface com.example.stylestackapp.auth.repository.UserSessionRepository
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:254)
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:393)
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:84)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:92)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:73)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:270)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getRepositoryFragments(JpaRepositoryFactory.java:300)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getRepositoryFragments(JpaRepositoryFactory.java:280)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.lambda$getRepositoryStub$0(RepositoryFactorySupport.java:497)
+	at java.base/java.util.HashMap.computeIfAbsent(HashMap.java:1220)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepositoryStub(RepositoryFactorySupport.java:494)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:334)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$1(RepositoryFactoryBeanSupport.java:361)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:136)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:370)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:212)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
+	... 18 common frames omitted
+2026-06-16 22:06:39 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
+2026-06-16 22:06:39 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 27240 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
+2026-06-16 22:06:39 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
+2026-06-16 22:06:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16 22:06:40 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 3 JPA repository interfaces.
+2026-06-16 22:06:40 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-16 22:06:40 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-06-16 22:06:40 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-16 22:06:40 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-16 22:06:40 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1091 ms
+2026-06-16 22:06:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-16 22:06:40 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@579f3c8e
+2026-06-16 22:06:40 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-16 22:06:40 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
+2026-06-16 22:06:40 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.025s)
+2026-06-16 22:06:41 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 6
+2026-06-16 22:06:41 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
+2026-06-16 22:06:41 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16 22:06:41 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-16 22:06:41 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16 22:06:41 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_dev]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -305,195 +288,31 @@ This generated password is for development use only. Your security configuration
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-06-15 22:50:00 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 22:50:00 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:50:00 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 22:50:01 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 5f484b35-d8b1-4d38-8cf1-5fbab6835e74
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-06-15 22:50:01 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 22:50:01 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 22:50:01 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2026-06-15 22:50:01 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2026-06-15 22:50:01 [main] INFO  c.e.s.StyleStackAppApplication - Started StyleStackAppApplication in 8.646 seconds (process running for 10.249)
-2026-06-15 22:50:02 [RMI TCP Connection(2)-192.168.0.109] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-15 22:50:02 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-15 22:50:02 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
-2026-06-15 22:50:12 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-15 22:50:13 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-15 22:50:13 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 22:50:13 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 22:50:13 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:03:35 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:03:35 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 2948 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:03:35 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "qa"
-2026-06-15 23:03:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:03:39 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 53 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:03:41 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-06-15 23:03:41 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-06-15 23:03:41 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:03:41 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:03:41 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 6344 ms
-2026-06-15 23:03:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:03:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@218df7d6
-2026-06-15 23:03:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:03:43 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_qa (PostgreSQL 18.4)
-2026-06-15 23:03:44 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table "public"."flyway_schema_history" does not exist yet
-2026-06-15 23:03:44 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.122s)
-2026-06-15 23:03:44 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table "public"."flyway_schema_history" ...
-2026-06-15 23:03:44 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": << Empty Schema >>
-2026-06-15 23:03:44 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "1 - Create User Table"
-2026-06-15 23:03:44 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "2 - Create Role Table"
-2026-06-15 23:03:44 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 2 migrations to schema "public", now at version v2 (execution time 00:00.061s)
-2026-06-15 23:03:45 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 23:03:45 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 23:03:47 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 23:03:47 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_qa]
-	Database driver: PostgreSQL JDBC Driver
-	Database dialect: PostgreSQLDialect
-	Database version: 18.4
-	Default catalog/schema: style_stack_qa/public
-	Autocommit mode: undefined/unknown
-	Isolation level: READ_COMMITTED [default READ_COMMITTED]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-06-15 23:03:49 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 23:03:49 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 23:03:49 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 23:03:51 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: a56df615-b293-43ee-bc17-4cd0c695b0f4
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-06-15 23:03:51 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 23:03:52 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 23:03:52 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-06-15 23:03:52 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
-2026-06-15 23:03:53 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 23:03:53 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:03:53 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:03:53 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+2026-06-16 22:06:42 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16 22:06:42 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:06:42 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16 22:06:42 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16 22:06:42 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'roleRepository' defined in com.example.stylestackapp.auth.repository.RoleRepository defined in @EnableJpaRepositories declared on DataJpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: interface com.example.stylestackapp.auth.repository.RoleRepository
+2026-06-16 22:06:42 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:06:42 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-16 22:06:42 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-16 22:06:42 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-06-16 22:06:42 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
 
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 23:03:53 [main] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
-
-***************************
-APPLICATION FAILED TO START
-***************************
-
-Description:
-
-Web server failed to start. Port 8080 was already in use.
-
-Action:
-
-Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
-
-2026-06-15 23:04:57 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:04:57 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 22056 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:04:57 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "qa"
-2026-06-15 23:05:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:05:00 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 36 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:05:02 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 23:05:02 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:05:02 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:05:02 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:05:03 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 5730 ms
-2026-06-15 23:05:04 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:05:05 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@20864cd1
-2026-06-15 23:05:05 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:05:05 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_qa (PostgreSQL 18.4)
-2026-06-15 23:05:05 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 2 migrations (execution time 00:00.117s)
-2026-06-15 23:05:05 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 2
-2026-06-15 23:05:05 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
-2026-06-15 23:05:05 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 23:05:06 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 23:05:08 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 23:05:08 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
-	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_qa]
-	Database driver: PostgreSQL JDBC Driver
-	Database dialect: PostgreSQLDialect
-	Database version: 18.4
-	Default catalog/schema: style_stack_qa/public
-	Autocommit mode: undefined/unknown
-	Isolation level: READ_COMMITTED [default READ_COMMITTED]
-	JDBC fetch size: none
-	Pool: DataSourceConnectionProvider
-	Minimum pool size: undefined/unknown
-	Maximum pool size: undefined/unknown
-2026-06-15 23:05:10 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 23:05:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 23:05:10 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 23:05:12 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
-
-Using generated security password: 3be6600f-4be2-4c7b-ae35-935bd902333b
-
-This generated password is for development use only. Your security configuration must be updated before running your application in production.
-
-2026-06-15 23:05:12 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 23:05:13 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 23:05:13 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:05:13 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2026-06-15 23:05:13 [main] INFO  c.e.s.StyleStackAppApplication - Started StyleStackAppApplication in 17.719 seconds (process running for 19.29)
-2026-06-15 23:05:14 [RMI TCP Connection(2)-192.168.0.109] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-15 23:05:14 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-15 23:05:14 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 10 ms
-2026-06-15 23:07:15 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-15 23:07:15 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-15 23:07:15 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 23:07:15 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:07:15 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:09:25 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:09:25 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 1312 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:09:25 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 23:09:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:09:28 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 52 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:09:30 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 23:09:30 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:09:30 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:09:30 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:09:31 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 5303 ms
-2026-06-15 23:09:32 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:09:32 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e73974
-2026-06-15 23:09:32 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:09:32 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 23:09:33 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 1
--> Applied to database : 977684722
--> Resolved locally    : 454698809
-Either revert the changes to the migration, or run repair to update the schema history.
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-2026-06-15 23:09:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:09:33 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:09:33 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2026-06-15 23:09:33 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 23:09:33 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 1
--> Applied to database : 977684722
--> Resolved locally    : 454698809
-Either revert the changes to the migration, or run repair to update the schema history.
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
+2026-06-16 22:06:42 [main] ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'roleRepository' defined in com.example.stylestackapp.auth.repository.RoleRepository defined in @EnableJpaRepositories declared on DataJpaRepositoriesRegistrar.EnableJpaRepositoriesConfiguration: Not a managed type: interface com.example.stylestackapp.auth.repository.RoleRepository
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1219)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1191)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1121)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:994)
 	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
 	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
 	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
@@ -502,387 +321,48 @@ Need more flexibility with validation rules? Learn more: https://help.red-gate.c
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
 	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
 	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 1
--> Applied to database : 977684722
--> Resolved locally    : 454698809
-Either revert the changes to the migration, or run repair to update the schema history.
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309)
-	... 10 common frames omitted
-Caused by: org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 1
--> Applied to database : 977684722
--> Resolved locally    : 454698809
-Either revert the changes to the migration, or run repair to update the schema history.
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:187)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
-	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
-	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67)
+Caused by: java.lang.IllegalArgumentException: Not a managed type: interface com.example.stylestackapp.auth.repository.RoleRepository
+	at org.hibernate.metamodel.model.domain.internal.JpaMetamodelImpl.managedType(JpaMetamodelImpl.java:254)
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:393)
+	at org.hibernate.metamodel.model.domain.internal.MappingMetamodelImpl.managedType(MappingMetamodelImpl.java:84)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:92)
+	at org.springframework.data.jpa.repository.support.JpaEntityInformationSupport.getEntityInformation(JpaEntityInformationSupport.java:73)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getEntityInformation(JpaRepositoryFactory.java:270)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getRepositoryFragments(JpaRepositoryFactory.java:300)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactory.getRepositoryFragments(JpaRepositoryFactory.java:280)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.lambda$getRepositoryStub$0(RepositoryFactorySupport.java:497)
+	at java.base/java.util.HashMap.computeIfAbsent(HashMap.java:1220)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepositoryStub(RepositoryFactorySupport.java:494)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport.getRepository(RepositoryFactorySupport.java:334)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.lambda$afterPropertiesSet$1(RepositoryFactoryBeanSupport.java:361)
+	at org.springframework.data.util.Lazy.getNullable(Lazy.java:136)
+	at org.springframework.data.util.Lazy.get(Lazy.java:114)
+	at org.springframework.data.repository.core.support.RepositoryFactoryBeanSupport.afterPropertiesSet(RepositoryFactoryBeanSupport.java:370)
+	at org.springframework.data.jpa.repository.support.JpaRepositoryFactoryBean.afterPropertiesSet(JpaRepositoryFactoryBean.java:212)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
-	... 17 common frames omitted
-2026-06-15 23:11:46 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:11:46 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 14648 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:11:46 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 23:11:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:11:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 41 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:11:53 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 23:11:53 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:11:53 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:11:53 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:11:53 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 6557 ms
-2026-06-15 23:11:54 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:11:55 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@31940704
-2026-06-15 23:11:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:11:55 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 23:11:55 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-2026-06-15 23:11:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:11:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:11:55 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2026-06-15 23:11:55 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 23:11:55 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
-	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309)
-	... 10 common frames omitted
-Caused by: org.flywaydb.core.api.exception.FlywayValidateException: Validate failed: Migrations have failed validation
-Migration checksum mismatch for migration version 2
--> Applied to database : 0
--> Resolved locally    : 1294526420
-Either revert the changes to the migration, or run repair to update the schema history.
-Need more flexibility with validation rules? Learn more: https://help.red-gate.com/help/flyway-cli12/help_4.aspx?topic=flyway-blog/older-posts/customize-validation-rules-with-ignoremigrationpatterns
-	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:187)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
-	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
-	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
-	... 17 common frames omitted
-2026-06-15 23:14:39 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:14:39 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 28692 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:14:39 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 23:14:40 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:14:40 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 23 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:14:41 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 23:14:41 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:14:42 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:14:42 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:14:42 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2543 ms
-2026-06-15 23:14:42 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:14:43 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3e28dc96
-2026-06-15 23:14:43 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:14:43 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 23:14:43 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table "public"."flyway_schema_history" does not exist yet
-2026-06-15 23:14:43 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.061s)
-2026-06-15 23:14:43 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table "public"."flyway_schema_history" ...
-2026-06-15 23:14:52 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-2026-06-15 23:14:52 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:14:52 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:14:52 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2026-06-15 23:14:52 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 23:14:52 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
-	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309)
-	... 10 common frames omitted
-Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.handleException(DefaultSqlScriptExecutor.java:251)
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:212)
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.execute(DefaultSqlScriptExecutor.java:134)
-	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory$1$1.call(JdbcTableSchemaHistory.java:124)
-	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:59)
-	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory$1.call(JdbcTableSchemaHistory.java:120)
-	at org.flywaydb.database.postgresql.PostgreSQLAdvisoryLockTemplate.execute(PostgreSQLAdvisoryLockTemplate.java:77)
-	at org.flywaydb.database.postgresql.PostgreSQLAdvisoryLockTemplate.lambda$execute$0(PostgreSQLAdvisoryLockTemplate.java:60)
-	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:59)
-	at org.flywaydb.database.postgresql.PostgreSQLAdvisoryLockTemplate.execute(PostgreSQLAdvisoryLockTemplate.java:60)
-	at org.flywaydb.database.postgresql.PostgreSQLConnection.lock(PostgreSQLConnection.java:105)
-	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory.create(JdbcTableSchemaHistory.java:110)
-	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:228)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
-	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
-	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
-	... 17 common frames omitted
-Caused by: org.postgresql.util.PSQLException: ERROR: permission denied for schema public
-  Position: 14
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2904)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2589)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:431)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:534)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:437)
-	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:359)
-	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:344)
-	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:320)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:315)
-	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
-	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
-	at org.flywaydb.core.internal.jdbc.JdbcTemplate.executeStatement(JdbcTemplate.java:229)
-	at org.flywaydb.core.internal.sqlscript.ParsedSqlStatement.execute(ParsedSqlStatement.java:88)
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:207)
-	... 34 common frames omitted
-2026-06-15 23:18:22 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:18:22 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 14828 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:18:22 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 23:18:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:18:23 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 19 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:18:24 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 23:18:24 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:18:24 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:18:24 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:18:25 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2414 ms
-2026-06-15 23:18:25 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:18:26 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e73974
-2026-06-15 23:18:26 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:18:26 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 23:18:26 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table "public"."flyway_schema_history" does not exist yet
-2026-06-15 23:18:26 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.042s)
-2026-06-15 23:18:26 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table "public"."flyway_schema_history" ...
-2026-06-15 23:18:35 [main] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-2026-06-15 23:18:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:18:35 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
-2026-06-15 23:18:35 [main] INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
-2026-06-15 23:18:35 [main] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
-
-Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
-2026-06-15 23:18:35 [main] ERROR o.s.boot.SpringApplication - Application run failed
-org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'entityManagerFactory' defined in class path resource [org/springframework/boot/hibernate/autoconfigure/HibernateJpaConfiguration.class]: Failed to initialize dependency 'flywayInitializer' of LoadTimeWeaverAware bean 'entityManagerFactory': Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:322)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:201)
-	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:977)
-	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:621)
-	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:143)
-	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:756)
-	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:445)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:321)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1365)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1354)
-	at com.example.stylestackapp.StyleStackAppApplication.main(StyleStackAppApplication.java:10)
-Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'flywayInitializer' defined in class path resource [org/springframework/boot/flyway/autoconfigure/FlywayAutoConfiguration$FlywayConfiguration.class]: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1815)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:603)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:525)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:333)
-	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:371)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:331)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:196)
-	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:309)
-	... 10 common frames omitted
-Caused by: org.flywaydb.core.internal.sqlscript.FlywaySqlScriptException: Failed to execute script 
--------------------------
-SQL State  : 42501
-Error Code : 0
-Message    : ERROR: permission denied for schema public
-  Position: 14
-Location   :  ()
-Line       : 1
-Statement  : Run Flyway with -X option to see the actual statement causing the problem
-
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.handleException(DefaultSqlScriptExecutor.java:251)
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:212)
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.execute(DefaultSqlScriptExecutor.java:134)
-	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory$1$1.call(JdbcTableSchemaHistory.java:124)
-	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:59)
-	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory$1.call(JdbcTableSchemaHistory.java:120)
-	at org.flywaydb.database.postgresql.PostgreSQLAdvisoryLockTemplate.execute(PostgreSQLAdvisoryLockTemplate.java:77)
-	at org.flywaydb.database.postgresql.PostgreSQLAdvisoryLockTemplate.lambda$execute$0(PostgreSQLAdvisoryLockTemplate.java:60)
-	at org.flywaydb.core.internal.jdbc.TransactionalExecutionTemplate.execute(TransactionalExecutionTemplate.java:59)
-	at org.flywaydb.database.postgresql.PostgreSQLAdvisoryLockTemplate.execute(PostgreSQLAdvisoryLockTemplate.java:60)
-	at org.flywaydb.database.postgresql.PostgreSQLConnection.lock(PostgreSQLConnection.java:105)
-	at org.flywaydb.core.internal.schemahistory.JdbcTableSchemaHistory.create(JdbcTableSchemaHistory.java:110)
-	at org.flywaydb.core.Flyway.lambda$migrate$3(Flyway.java:228)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:236)
-	at org.flywaydb.core.FlywayExecutor.execute(FlywayExecutor.java:120)
-	at org.flywaydb.core.Flyway.migrate(Flyway.java:181)
-	at org.springframework.boot.flyway.autoconfigure.FlywayMigrationInitializer.afterPropertiesSet(FlywayMigrationInitializer.java:67)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1862)
-	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1811)
-	... 17 common frames omitted
-Caused by: org.postgresql.util.PSQLException: ERROR: permission denied for schema public
-  Position: 14
-	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2904)
-	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2589)
-	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:431)
-	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:534)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:437)
-	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:359)
-	at org.postgresql.jdbc.PgStatement.executeCachedSql(PgStatement.java:344)
-	at org.postgresql.jdbc.PgStatement.executeWithFlags(PgStatement.java:320)
-	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:315)
-	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:95)
-	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java)
-	at org.flywaydb.core.internal.jdbc.JdbcTemplate.executeStatement(JdbcTemplate.java:229)
-	at org.flywaydb.core.internal.sqlscript.ParsedSqlStatement.execute(ParsedSqlStatement.java:88)
-	at org.flywaydb.core.internal.sqlscript.DefaultSqlScriptExecutor.executeStatement(DefaultSqlScriptExecutor.java:207)
-	... 34 common frames omitted
-2026-06-15 23:29:46 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
-2026-06-15 23:29:46 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 13596 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
-2026-06-15 23:29:46 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
-2026-06-15 23:29:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-06-15 23:29:46 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 7 ms. Found 0 JPA repository interfaces.
-2026-06-15 23:29:47 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
-2026-06-15 23:29:47 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:29:47 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-06-15 23:29:47 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
-2026-06-15 23:29:47 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 999 ms
-2026-06-15 23:29:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-06-15 23:29:47 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6e73974
-2026-06-15 23:29:47 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-06-15 23:29:47 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
-2026-06-15 23:29:47 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Schema history table "public"."flyway_schema_history" does not exist yet
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.015s)
-2026-06-15 23:29:47 [main] INFO  o.f.c.i.s.JdbcTableSchemaHistory - Creating Schema History table "public"."flyway_schema_history" ...
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": << Empty Schema >>
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "1 - Create User Table"
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "2 - Create Role Table"
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "3 - Create Users Table"
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "4 - Create User Roles Table"
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "5 - Create User Sessions Table"
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Migrating schema "public" to version "6 - Seed Default Roles"
-2026-06-15 23:29:47 [main] INFO  o.f.core.internal.command.DbMigrate - Successfully applied 6 migrations to schema "public", now at version v6 (execution time 00:00.027s)
-2026-06-15 23:29:47 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-06-15 23:29:47 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
-2026-06-15 23:29:48 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-06-15 23:29:48 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	... 18 common frames omitted
+2026-06-16 22:07:07 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.1.0.Final
+2026-06-16 22:07:07 [main] INFO  c.e.s.StyleStackAppApplication - Starting StyleStackAppApplication using Java 17.0.12 with PID 3428 (C:\Projects\Development Learning\Backend Project\style-stack-app\target\classes started by chand in C:\Projects\Development Learning\Backend Project\style-stack-app)
+2026-06-16 22:07:07 [main] INFO  c.e.s.StyleStackAppApplication - The following 1 profile is active: "dev"
+2026-06-16 22:07:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-06-16 22:07:08 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 38 ms. Found 3 JPA repository interfaces.
+2026-06-16 22:07:08 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8081 (http)
+2026-06-16 22:07:08 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8081"]
+2026-06-16 22:07:08 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-06-16 22:07:08 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.22]
+2026-06-16 22:07:08 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 1183 ms
+2026-06-16 22:07:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-06-16 22:07:09 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@30c8c6ab
+2026-06-16 22:07:09 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-06-16 22:07:09 [main] INFO  org.flywaydb.core.FlywayExecutor - Database: jdbc:postgresql://localhost:5432/style_stack_dev (PostgreSQL 18.4)
+2026-06-16 22:07:09 [main] INFO  o.f.core.internal.command.DbValidate - Successfully validated 6 migrations (execution time 00:00.023s)
+2026-06-16 22:07:09 [main] INFO  o.f.core.internal.command.DbMigrate - Current version of schema "public": 6
+2026-06-16 22:07:09 [main] INFO  o.f.core.internal.command.DbMigrate - Schema "public" is up to date. No migration necessary.
+2026-06-16 22:07:09 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-06-16 22:07:09 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.4.1.Final
+2026-06-16 22:07:09 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-06-16 22:07:09 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/style_stack_dev]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -894,25 +374,27 @@ Caused by: org.postgresql.util.PSQLException: ERROR: permission denied for schem
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-06-15 23:29:48 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-06-15 23:29:48 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 23:29:48 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-06-15 23:29:49 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
+2026-06-16 22:07:10 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-06-16 22:07:10 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:07:10 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-06-16 22:07:11 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-06-16 22:07:11 [main] WARN  o.s.b.s.a.UserDetailsServiceAutoConfiguration - 
 
-Using generated security password: a553f19c-ea75-4ab2-a7fd-3c0ae0ffa0ce
+Using generated security password: 80e8157c-7eed-47fc-ba87-9888a2bcca0f
 
 This generated password is for development use only. Your security configuration must be updated before running your application in production.
 
-2026-06-15 23:29:49 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
-2026-06-15 23:29:49 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
-2026-06-15 23:29:49 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
-2026-06-15 23:29:49 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
-2026-06-15 23:29:49 [main] INFO  c.e.s.StyleStackAppApplication - Started StyleStackAppApplication in 3.974 seconds (process running for 4.669)
-2026-06-15 23:29:50 [RMI TCP Connection(2)-192.168.0.109] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-06-15 23:29:50 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-06-15 23:29:50 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-06-15 23:34:19 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-06-15 23:34:20 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-06-15 23:34:20 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-06-15 23:34:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-06-15 23:34:20 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-06-16 22:07:11 [main] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name inMemoryUserDetailsManager
+2026-06-16 22:07:11 [main] INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-06-16 22:07:11 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8081"]
+2026-06-16 22:07:11 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8081 (http) with context path '/'
+2026-06-16 22:07:11 [main] INFO  c.e.s.StyleStackAppApplication - Started StyleStackAppApplication in 4.283 seconds (process running for 4.86)
+2026-06-16 22:07:11 [RMI TCP Connection(2)-192.168.0.109] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-06-16 22:07:11 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-06-16 22:07:11 [RMI TCP Connection(2)-192.168.0.109] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-06-16 22:07:26 [http-nio-8081-exec-1] WARN  o.a.c.util.SessionIdGeneratorBase - Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [145] milliseconds.
+2026-06-16 22:08:18 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-06-16 22:08:18 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-06-16 22:08:18 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-06-16 22:08:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-06-16 22:08:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
