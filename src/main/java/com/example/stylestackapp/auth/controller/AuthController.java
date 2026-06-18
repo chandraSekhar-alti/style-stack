@@ -1,6 +1,8 @@
 package com.example.stylestackapp.auth.controller;
 
+import com.example.stylestackapp.auth.dto.request.LoginRequestDto;
 import com.example.stylestackapp.auth.dto.request.RegisterRequestDto;
+import com.example.stylestackapp.auth.dto.response.LoginResponseDto;
 import com.example.stylestackapp.auth.service.AuthService.AuthService;
 import com.example.stylestackapp.common.response.ApiResponse.ApiResponse;
 import jakarta.validation.Valid;
@@ -14,13 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 
+import static org.springframework.http.ResponseEntity.ok;
+
 @RestController
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
 
-        @PostMapping("/register")
+    @PostMapping("/register")
     public ResponseEntity<ApiResponse<Void>> register(
             @Valid
             @RequestBody RegisterRequestDto requestDto
@@ -38,5 +42,24 @@ public class AuthController {
                 );
     }
 
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<LoginResponseDto>> login(
+            @Valid
+            @RequestBody LoginRequestDto requestDto
+    ){
+
+        LoginResponseDto loginResponse = authService.login(requestDto);
+
+        return ok(
+                ApiResponse.<LoginResponseDto>builder()
+                        .success(true)
+                        .message("User logged in successfully")
+                        .timeStamp(LocalDateTime.now())
+                        .data(loginResponse)
+                        .build()
+        );
+
+    }
 
 }
