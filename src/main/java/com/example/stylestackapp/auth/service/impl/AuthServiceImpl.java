@@ -100,9 +100,7 @@ public class AuthServiceImpl implements AuthService {
                         )
                         .build();
 
-        System.out.println("User session created: " + userSession.toString());
         userSessionRepository.save(userSession);
-        System.out.println("User session saved: " + userSession);
 
         return LoginResponseDto.builder()
                 .accessToken(accessToken)
@@ -113,4 +111,17 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
+
+    @Override
+    @Transactional
+    public void logout(String accessToken){
+        String jti = jwtService.extractJwtId(accessToken);
+
+        UserSession userSession = userSessionRepository.findByAccessTokenJti(jti)
+                .orElseThrow(() -> new ResourceNotFoundException("User session not found"));
+
+        userSession.setActive(false);
+
+        userSessionRepository.save(userSession);
+    }
 }

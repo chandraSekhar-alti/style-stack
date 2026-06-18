@@ -10,4 +10,6 @@ public interface AuthService {
 
     LoginResponseDto login(LoginRequestDto requestDto);
 
+    void logout(String accessToken);
+
 }

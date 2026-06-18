@@ -8,6 +8,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -124,5 +125,13 @@ public class JwtServiceImpl implements JwtService {
     @Override
     public String extractJwtId(String token) {
         return extractAllClaims(token).get("jwtId", String.class);
+    }
+
+    @Override
+    public boolean isTokenValid(String token, UserDetails userDetails){
+        return extractUserName(token)
+                .equals(
+                        userDetails.getUsername())
+                && !isTokenExpired(token);
     }
 }

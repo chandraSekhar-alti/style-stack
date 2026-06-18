@@ -1,6 +1,7 @@
 package com.example.stylestackapp.security.jwt;
 
 import com.example.stylestackapp.auth.entity.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface JwtService {
 
@@ -13,4 +14,6 @@ public interface JwtService {
     boolean isTokenValid(String token, User user);
 
     String extractJwtId(String token);
+
+    boolean isTokenValid(String token, UserDetails userDetails);
 }
