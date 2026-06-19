@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.UUID;
 
 @Getter
 @RequiredArgsConstructor
@@ -46,4 +47,13 @@ public class CustomUserPrincipal implements UserDetails {
     public boolean isAccountNonLocked() {
         return user.isAccountNonLocked();
     }
+
+    public UUID getUserId() {
+        return user.getId();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
 }

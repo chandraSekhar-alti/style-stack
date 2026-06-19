@@ -16,4 +16,6 @@ public interface JwtService {
     String extractJwtId(String token);
 
     boolean isTokenValid(String token, UserDetails userDetails);
+
+    boolean isRefreshTokenValid(String token, User user);
 }

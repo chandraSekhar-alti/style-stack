@@ -134,4 +134,9 @@ public class JwtServiceImpl implements JwtService {
                         userDetails.getUsername())
                 && !isTokenExpired(token);
     }
+
+    @Override
+    public boolean isRefreshTokenValid(String token, User user) {
+        return isTokenValid(token, user);
+    }
 }
