@@ -8,9 +8,9 @@ import com.example.stylestackapp.auth.dto.response.RefreshTokenResponseDto;
 import com.example.stylestackapp.auth.entity.Role;
 import com.example.stylestackapp.auth.entity.User;
 import com.example.stylestackapp.auth.entity.UserSession;
-import com.example.stylestackapp.auth.repository.RoleRepository;
-import com.example.stylestackapp.auth.repository.UserRepository;
-import com.example.stylestackapp.auth.repository.UserSessionRepository;
+import com.example.stylestackapp.auth.repository.RoleRepo;
+import com.example.stylestackapp.auth.repository.UserRepo;
+import com.example.stylestackapp.auth.repository.UserSessionRepo;
 import com.example.stylestackapp.auth.service.AuthService.AuthService;
 import com.example.stylestackapp.common.enums.RoleName;
 import com.example.stylestackapp.common.exceptions.DuplicateResourceException;
@@ -32,9 +32,9 @@ import java.util.Optional;
 @Transactional
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepository userRepository;
-    private final UserSessionRepository userSessionRepository;
-    private final RoleRepository roleRepository;
+    private final UserRepo userRepo;
+    private final UserSessionRepo userSessionRepo;
+    private final RoleRepo roleRepo;
     private final PasswordEncoder passwordEncoder;
 
     private final AuthenticationManager authenticationManager;
@@ -42,11 +42,11 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void Register(RegisterRequestDto requestDto) {
-        if (userRepository.existsByEmail(requestDto.getEmail())) {
+        if (userRepo.existsByEmail(requestDto.getEmail())) {
             throw new DuplicateResourceException("User with email " + requestDto.getEmail() + " already exists");
         }
 
-        Role customerRole = roleRepository.
+        Role customerRole = roleRepo.
                 findByName(
                         RoleName.ROLE_CUSTOMER
                 ).orElseThrow(() -> new ResourceNotFoundException("Role not found"));
@@ -64,7 +64,7 @@ public class AuthServiceImpl implements AuthService {
 
         savedUser.getRoles().add(customerRole);
 
-        userRepository.save(savedUser);
+        userRepo.save(savedUser);
     }
 
     @Override
@@ -78,7 +78,7 @@ public class AuthServiceImpl implements AuthService {
                 )
         );
 
-        Optional<User> optionalUser = userRepository.findByEmail(requestDto.getEmail());
+        Optional<User> optionalUser = userRepo.findByEmail(requestDto.getEmail());
 
         if (optionalUser.isEmpty()) {
             throw new ResourceNotFoundException("User with email " + requestDto.getEmail() + " not found");
@@ -103,7 +103,7 @@ public class AuthServiceImpl implements AuthService {
                         )
                         .build();
 
-        userSessionRepository.save(userSession);
+        userSessionRepo.save(userSession);
 
         return LoginResponseDto.builder()
                 .accessToken(accessToken)
@@ -120,19 +120,19 @@ public class AuthServiceImpl implements AuthService {
     public void logout(String accessToken) {
         String jti = jwtService.extractJwtId(accessToken);
 
-        UserSession userSession = userSessionRepository.findByAccessTokenJti(jti)
+        UserSession userSession = userSessionRepo.findByAccessTokenJti(jti)
                 .orElseThrow(() -> new ResourceNotFoundException("User session not found"));
 
         userSession.setActive(false);
 
-        userSessionRepository.save(userSession);
+        userSessionRepo.save(userSession);
     }
 
     @Override
     @Transactional
     public RefreshTokenResponseDto refreshToken(RefreshTokenRequestDto requestDto) {
 
-        UserSession userSession = userSessionRepository
+        UserSession userSession = userSessionRepo
                 .findByRefreshToken(
                         requestDto.getRefreshToken()
                 ).orElseThrow(() -> new UnauthorizedException("Invalid refresh token"));
@@ -158,7 +158,7 @@ public class AuthServiceImpl implements AuthService {
                 jwtService.extractJwtId(newAccessToken)
         );
 
-        userSessionRepository.save(userSession);
+        userSessionRepo.save(userSession);
 
         return RefreshTokenResponseDto.builder()
                 .accessToken(newAccessToken)

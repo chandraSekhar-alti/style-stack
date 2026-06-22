@@ -2,7 +2,7 @@ package com.example.stylestackapp.auth.service.impl;
 
 import com.example.stylestackapp.auth.dto.response.MeResponseDto;
 import com.example.stylestackapp.auth.entity.User;
-import com.example.stylestackapp.auth.repository.UserRepository;
+import com.example.stylestackapp.auth.repository.UserRepo;
 import com.example.stylestackapp.auth.service.AuthService.UserService;
 import com.example.stylestackapp.security.service.CustomUserPrincipal;
 import lombok.RequiredArgsConstructor;
@@ -18,11 +18,11 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
-    private final UserRepository userRepository;
+    private final UserRepo userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email)
+        User user = userRepo.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
         return new CustomUserPrincipal(user);

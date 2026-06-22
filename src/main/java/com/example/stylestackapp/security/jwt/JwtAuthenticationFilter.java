@@ -1,7 +1,7 @@
 package com.example.stylestackapp.security.jwt;
 
 import com.example.stylestackapp.auth.entity.UserSession;
-import com.example.stylestackapp.auth.repository.UserSessionRepository;
+import com.example.stylestackapp.auth.repository.UserSessionRepo;
 import com.example.stylestackapp.auth.service.impl.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -27,7 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final UserDetailsServiceImpl userDetailsService;
-    private final UserSessionRepository userSessionRepository;
+    private final UserSessionRepo userSessionRepo;
 
 
     @Override
@@ -53,7 +53,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
            String jwtId = jwtService.extractJwtId(jwt);
             Optional<UserSession> userSession =
-                    userSessionRepository.findByAccessTokenJti(jwtId);
+                    userSessionRepo.findByAccessTokenJti(jwtId);
 
             if(userSession.isEmpty() || !userSession.get().isActive()){
                 filterChain.doFilter(request, response);
