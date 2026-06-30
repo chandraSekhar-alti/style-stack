@@ -9,10 +9,9 @@ import lombok.*;
 @AllArgsConstructor
 public class PaymentLinkResponse {
 
-    private String paymentUrl;
+  private String paymentUrl;
 
-    private PaymentMethod paymentMethod;
+  private PaymentMethod paymentMethod;
 
-    private String gatewayReferenceId;
-
+  private String gatewayReferenceId;
 }

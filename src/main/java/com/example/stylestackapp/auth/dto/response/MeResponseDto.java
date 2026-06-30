@@ -12,15 +12,15 @@ import java.util.UUID;
 @Builder
 public class MeResponseDto {
 
-    private UUID id;
+  private UUID id;
 
-    private String firstName;
+  private String firstName;
 
-    private String lastName;
+  private String lastName;
 
-    private String email;
+  private String email;
 
-    private String phoneNumber;
+  private String phoneNumber;
 
-    private Set<String> roles;
+  private Set<String> roles;
 }

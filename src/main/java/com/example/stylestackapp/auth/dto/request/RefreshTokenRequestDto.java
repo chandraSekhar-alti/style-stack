@@ -1,6 +1,5 @@
 package com.example.stylestackapp.auth.dto.request;
 
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +12,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class RefreshTokenRequestDto {
 
-    @NotBlank(message = "Refresh token is required")
-    private String refreshToken;
+  @NotBlank(message = "Refresh token is required")
+  private String refreshToken;
 }

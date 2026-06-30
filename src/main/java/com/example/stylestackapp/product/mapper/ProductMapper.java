@@ -7,15 +7,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProductMapper {
 
-    public ProductResponse toProductResponse(Product product){
-        return ProductResponse.builder()
-                .id(product.getId())
-                .name(product.getName())
-                .description(product.getDescription())
-                .price(product.getPrice())
-                .stockQuantity(product.getStockQuantity())
-                .imageUrl(product.getImageUrl())
-                .categoryName(product.getCategory().getName())
-                .build();
-    }
+  public ProductResponse toProductResponse(Product product) {
+    return ProductResponse.builder()
+        .id(product.getId())
+        .name(product.getName())
+        .description(product.getDescription())
+        .price(product.getPrice())
+        .stockQuantity(product.getStockQuantity())
+        .imageUrl(product.getImageUrl())
+        .categoryName(product.getCategory().getName())
+        .build();
+  }
 }

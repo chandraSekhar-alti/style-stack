@@ -18,37 +18,32 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
-    private final UserRepo userRepo;
+  private final UserRepo userRepo;
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepo.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    User user =
+        userRepo
+            .findByEmail(email)
+            .orElseThrow(
+                () -> new UsernameNotFoundException("User not found with email: " + email));
 
-        return new CustomUserPrincipal(user);
-    }
+    return new CustomUserPrincipal(user);
+  }
 
-    @Override
-    @Transactional(readOnly = true)
-    public MeResponseDto getCurrentUser(CustomUserPrincipal principal) {
-        User user = principal.getUser();
+  @Override
+  @Transactional(readOnly = true)
+  public MeResponseDto getCurrentUser(CustomUserPrincipal principal) {
+    User user = principal.getUser();
 
-        return MeResponseDto.builder()
-                .id(user.getId())
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .email(user.getEmail())
-                .phoneNumber(user.getPhoneNumber())
-                .roles(
-                        user.getRoles()
-                                .stream()
-                                .map(role ->
-                                        role.getName().name())
-                                .collect(Collectors.toSet())
-                )
-                .build();
-
-    }
-
-
+    return MeResponseDto.builder()
+        .id(user.getId())
+        .firstName(user.getFirstName())
+        .lastName(user.getLastName())
+        .email(user.getEmail())
+        .phoneNumber(user.getPhoneNumber())
+        .roles(
+            user.getRoles().stream().map(role -> role.getName().name()).collect(Collectors.toSet()))
+        .build();
+  }
 }

@@ -13,12 +13,11 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CheckoutResponse {
 
-    private UUID orderId;
+  private UUID orderId;
 
-    private String orderNumber;
+  private String orderNumber;
 
-    private BigDecimal totalAmount;
+  private BigDecimal totalAmount;
 
-    private OrderStatus orderStatus;
-
+  private OrderStatus orderStatus;
 }

@@ -22,72 +22,66 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
 @Transactional
 public class PaymentServiceImpl implements PaymentService {
 
-    private final OrderRepo orderRepo;
-    private final PaymentRepo paymentRepo;
-    private final PaymentGatewayFactory paymentGatewayFactory;
+  private final OrderRepo orderRepo;
+  private final PaymentRepo paymentRepo;
+  private final PaymentGatewayFactory paymentGatewayFactory;
 
-    @Override
-    public PaymentLinkResponse generatePaymentLink(
-            CreatePaymentLinkRequest request,
-            CustomUserPrincipal principal
-    ) throws Exception {
+  @Override
+  public PaymentLinkResponse generatePaymentLink(
+      CreatePaymentLinkRequest request, CustomUserPrincipal principal) throws Exception {
 
-        Order order = orderRepo.findById(request.getOrderId())
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("Order not found")
-                );
+    Order order =
+        orderRepo
+            .findById(request.getOrderId())
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
 
-        //Validate Owner
-        if (!order.getUser().getId().equals(principal.getUserId())) {
-            throw new UnauthorizedException("You are not authorized to access this order.");
-        }
-
-        //Validate Order Status
-        if (order.getStatus() != OrderStatus.PENDING_PAYMENT) {
-            throw new BusinessException("Payment link can only be generated for pending orders.");
-        }
-
-        Optional<Payment> existingPayment = paymentRepo
-                .findFirstByOrderIdAndPaymentStatusOrderByCreatedAtDesc(
-                        order.getId(),
-                        PaymentStatus.PENDING
-                );
-
-        if (existingPayment.isPresent()) {
-            return PaymentLinkResponse.builder()
-                    .paymentUrl(existingPayment.get().getPaymentLink())
-                    .gatewayReferenceId(existingPayment.get().getGatewayReferenceId())
-                    .paymentMethod(existingPayment.get().getPaymentMethod())
-                    .build();
-        }
-
-        Payment payment = Payment.builder()
-                .order(order)
-                .paymentMethod(request.getPaymentMethod())
-                .paymentStatus(PaymentStatus.PENDING)
-                .amount(order.getTotalAmount())
-                .build();
-
-        paymentRepo.save(payment);
-
-        PaymentGateway gateway = paymentGatewayFactory.getGateway(
-                request.getPaymentMethod()
-        );
-
-        PaymentLinkResponse response = gateway.createPaymentLink(order, payment);
-
-        //Update Payment
-        payment.setGatewayReferenceId(response.getGatewayReferenceId());
-        payment.setPaymentLink(response.getPaymentUrl());
-        paymentRepo.save(payment);
-
-        return response;
+    // Validate Owner
+    if (!order.getUser().getId().equals(principal.getUserId())) {
+      throw new UnauthorizedException("You are not authorized to access this order.");
     }
+
+    // Validate Order Status
+    if (order.getStatus() != OrderStatus.PENDING_PAYMENT) {
+      throw new BusinessException("Payment link can only be generated for pending orders.");
+    }
+
+    Optional<Payment> existingPayment =
+        paymentRepo.findFirstByOrderIdAndPaymentStatusOrderByCreatedAtDesc(
+            order.getId(), PaymentStatus.PENDING);
+
+    if (existingPayment.isPresent()) {
+      return PaymentLinkResponse.builder()
+          .paymentUrl(existingPayment.get().getPaymentLink())
+          .gatewayReferenceId(existingPayment.get().getGatewayReferenceId())
+          .paymentMethod(existingPayment.get().getPaymentMethod())
+          .build();
+    }
+
+    Payment payment =
+        Payment.builder()
+            .order(order)
+            .paymentMethod(request.getPaymentMethod())
+            .paymentStatus(PaymentStatus.PENDING)
+            .amount(order.getTotalAmount())
+            .build();
+
+    paymentRepo.save(payment);
+
+    PaymentGateway gateway = paymentGatewayFactory.getGateway(request.getPaymentMethod());
+
+    PaymentLinkResponse response = gateway.createPaymentLink(order, payment);
+
+    // Update Payment
+    payment.setGatewayReferenceId(response.getGatewayReferenceId());
+    payment.setPaymentLink(response.getPaymentUrl());
+    paymentRepo.save(payment);
+
+    return response;
+  }
 }

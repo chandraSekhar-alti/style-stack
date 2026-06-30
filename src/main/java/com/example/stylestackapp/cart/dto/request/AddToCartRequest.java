@@ -11,9 +11,9 @@ import java.util.UUID;
 @Setter
 public class AddToCartRequest {
 
-    @NotNull
-    private UUID productId;
+  @NotNull
+  private UUID productId;
 
-    @Min(1)
-    private Integer quantity;
+  @Min(1)
+  private Integer quantity;
 }

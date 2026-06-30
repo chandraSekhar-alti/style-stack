@@ -1,10 +1,9 @@
 package com.example.stylestackapp.common.enums;
 
 public enum OrderStatus {
+  PENDING_PAYMENT,
 
-    PENDING_PAYMENT,
+  PAID,
 
-    PAID,
-
-    CANCELLED
+  CANCELLED
 }

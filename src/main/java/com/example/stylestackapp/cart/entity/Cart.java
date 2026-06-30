@@ -15,11 +15,11 @@ import lombok.*;
 @AllArgsConstructor
 public class Cart extends AuditableEntity {
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false, unique = true)
+  private User user;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private CartStatus status;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private CartStatus status;
 }

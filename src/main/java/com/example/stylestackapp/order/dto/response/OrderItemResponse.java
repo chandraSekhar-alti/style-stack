@@ -11,12 +11,11 @@ import java.math.BigDecimal;
 @Builder
 public class OrderItemResponse {
 
-    private String productName;
+  private String productName;
 
-    private Integer quantity;
+  private Integer quantity;
 
-    private BigDecimal price;
+  private BigDecimal price;
 
-    private BigDecimal subTotal;
-
+  private BigDecimal subTotal;
 }

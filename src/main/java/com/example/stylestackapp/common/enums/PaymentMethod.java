@@ -1,10 +1,9 @@
 package com.example.stylestackapp.common.enums;
 
 public enum PaymentMethod {
+  RAZORPAY,
 
-    RAZORPAY,
+  PHONEPE,
 
-    PHONEPE,
-
-    STRIPE
+  STRIPE
 }

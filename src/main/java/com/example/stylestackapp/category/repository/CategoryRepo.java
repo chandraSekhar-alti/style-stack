@@ -9,12 +9,11 @@ import java.util.UUID;
 
 public interface CategoryRepo extends JpaRepository<Category, UUID> {
 
-    Optional<Category> findBySlug(String slug);
+  Optional<Category> findBySlug(String slug);
 
-    boolean existsBySlug(String slug);
+  boolean existsBySlug(String slug);
 
-    boolean existsByNameIgnoreCase(String name);
+  boolean existsByNameIgnoreCase(String name);
 
-    List<Category> findByActiveTrue();
-
+  List<Category> findByActiveTrue();
 }

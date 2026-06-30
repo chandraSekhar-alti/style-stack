@@ -1,6 +1,5 @@
 package com.example.stylestackapp.order.entity;
 
-
 import com.example.stylestackapp.auth.entity.AuditableEntity;
 import com.example.stylestackapp.auth.entity.User;
 import com.example.stylestackapp.common.enums.OrderStatus;
@@ -19,21 +18,20 @@ import java.time.LocalDateTime;
 @Builder
 public class Order extends AuditableEntity {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "user_id", nullable = false)
+  private User user;
 
-    @Column(name = "order_number", nullable = false, unique = true)
-    private String orderNumber;
+  @Column(name = "order_number", nullable = false, unique = true)
+  private String orderNumber;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private OrderStatus status;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false)
+  private OrderStatus status;
 
-    @Column(name = "total_amount", nullable = false, precision = 12, scale = 2)
-    private BigDecimal totalAmount;
+  @Column(name = "total_amount", nullable = false, precision = 12, scale = 2)
+  private BigDecimal totalAmount;
 
-    @Column(name = "placed_at")
-    private LocalDateTime placedAt;
-
+  @Column(name = "placed_at")
+  private LocalDateTime placedAt;
 }

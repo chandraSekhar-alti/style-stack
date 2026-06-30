@@ -1,6 +1,5 @@
 package com.example.stylestackapp.auth.dto.response;
 
-
 import lombok.*;
 
 @Getter
@@ -10,12 +9,11 @@ import lombok.*;
 @Builder
 public class LoginResponseDto {
 
-    private String email;
+  private String email;
 
-    private String accessToken;
+  private String accessToken;
 
-    private String refreshToken;
+  private String refreshToken;
 
-    private String tokenType;
-
+  private String tokenType;
 }

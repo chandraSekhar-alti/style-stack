@@ -18,26 +18,25 @@ import java.util.UUID;
 @Transactional
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductRepo productsRepo;
-    private final ProductMapper productMapper;
+  private final ProductRepo productsRepo;
+  private final ProductMapper productMapper;
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<ProductResponse> getAllProducts() {
-        return productsRepo.
-                findByIsActiveIsTrue()
-                .stream()
-                .map(productMapper :: toProductResponse)
-                .toList();
-    }
+  @Override
+  @Transactional(readOnly = true)
+  public List<ProductResponse> getAllProducts() {
+    return productsRepo.findByIsActiveIsTrue().stream()
+        .map(productMapper::toProductResponse)
+        .toList();
+  }
 
-    @Override
-    @Transactional(readOnly = true)
-    public ProductResponse getProductById(UUID productId) {
-        Product product = productsRepo.
-                findById(productId)
-                .orElseThrow(()-> new ResourceAccessException("Product not found"));
+  @Override
+  @Transactional(readOnly = true)
+  public ProductResponse getProductById(UUID productId) {
+    Product product =
+        productsRepo
+            .findById(productId)
+            .orElseThrow(() -> new ResourceAccessException("Product not found"));
 
-        return productMapper.toProductResponse(product);
-    }
+    return productMapper.toProductResponse(product);
+  }
 }

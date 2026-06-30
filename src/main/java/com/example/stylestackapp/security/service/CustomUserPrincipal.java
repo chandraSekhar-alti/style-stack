@@ -14,46 +14,41 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CustomUserPrincipal implements UserDetails {
 
-    private final User user;
+  private final User user;
 
-    @Override
-    public Collection<? extends GrantedAuthority>
-    getAuthorities() {
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        return user.getRoles()
-                .stream()
-                .map(role ->
-                        new SimpleGrantedAuthority(
-                                role.getName().name()))
-                .toList();
-    }
+    return user.getRoles().stream()
+        .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+        .toList();
+  }
 
-    @Override
-    public String getPassword() {
-        return user.getPassword();
-    }
+  @Override
+  public String getPassword() {
+    return user.getPassword();
+  }
 
-    @Override
-    public String getUsername() {
-        return user.getEmail();
-    }
+  @Override
+  public String getUsername() {
+    return user.getEmail();
+  }
 
-    @Override
-    public boolean isEnabled() {
-        return user.isEnabled();
-    }
+  @Override
+  public boolean isEnabled() {
+    return user.isEnabled();
+  }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return user.isAccountNonLocked();
-    }
+  @Override
+  public boolean isAccountNonLocked() {
+    return user.isAccountNonLocked();
+  }
 
-    public UUID getUserId() {
-        return user.getId();
-    }
+  public UUID getUserId() {
+    return user.getId();
+  }
 
-    public User getUser() {
-        return user;
-    }
-
+  public User getUser() {
+    return user;
+  }
 }

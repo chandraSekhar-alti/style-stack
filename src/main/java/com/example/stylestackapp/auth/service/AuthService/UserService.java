@@ -5,6 +5,5 @@ import com.example.stylestackapp.security.service.CustomUserPrincipal;
 
 public interface UserService {
 
-    MeResponseDto getCurrentUser(CustomUserPrincipal principal);
-
+  MeResponseDto getCurrentUser(CustomUserPrincipal principal);
 }

@@ -12,17 +12,17 @@ import java.util.UUID;
 @Builder
 public class ProductResponse {
 
-    private UUID id;
+  private UUID id;
 
-    private String description;
+  private String description;
 
-    private String name;
+  private String name;
 
-    private BigDecimal price;
+  private BigDecimal price;
 
-    private Integer stockQuantity;
+  private Integer stockQuantity;
 
-    private String imageUrl;
+  private String imageUrl;
 
-    private String categoryName;
+  private String categoryName;
 }

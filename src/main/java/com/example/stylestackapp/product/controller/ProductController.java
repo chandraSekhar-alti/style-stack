@@ -19,38 +19,32 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ProductController {
 
-    private final ProductService productService;
+  private final ProductService productService;
 
-    @GetMapping
-    public ResponseEntity<ApiResponse<List<ProductResponse>>> getAllProducts(){
-        List<ProductResponse> products =
-                productService.getAllProducts();
+  @GetMapping
+  public ResponseEntity<ApiResponse<List<ProductResponse>>> getAllProducts() {
+    List<ProductResponse> products = productService.getAllProducts();
 
-        return ResponseEntity.ok(
-                ApiResponse.<List<ProductResponse>>builder()
-                        .success(true)
-                        .message("Products fetched successfully")
-                        .data(products)
-                        .timeStamp(LocalDateTime.now())
-                        .build()
-        );
-    }
+    return ResponseEntity.ok(
+        ApiResponse.<List<ProductResponse>>builder()
+            .success(true)
+            .message("Products fetched successfully")
+            .data(products)
+            .timeStamp(LocalDateTime.now())
+            .build());
+  }
 
-    @GetMapping("/{productId}")
-    public ResponseEntity<ApiResponse<ProductResponse>>
-    getProduct(
-            @PathVariable UUID productId) {
+  @GetMapping("/{productId}")
+  public ResponseEntity<ApiResponse<ProductResponse>> getProduct(@PathVariable UUID productId) {
 
-        ProductResponse product =
-                productService.getProductById(productId);
+    ProductResponse product = productService.getProductById(productId);
 
-        return ResponseEntity.ok(
-                ApiResponse.<ProductResponse>builder()
-                        .success(true)
-                        .message("Product fetched successfully")
-                        .data(product)
-                        .timeStamp(LocalDateTime.now())
-                        .build()
-        );
-    }
+    return ResponseEntity.ok(
+        ApiResponse.<ProductResponse>builder()
+            .success(true)
+            .message("Product fetched successfully")
+            .data(product)
+            .timeStamp(LocalDateTime.now())
+            .build());
+  }
 }

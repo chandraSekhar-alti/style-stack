@@ -15,16 +15,15 @@ import java.util.UUID;
 @Builder
 public class OrderDetailsResponse {
 
-    private UUID orderId;
+  private UUID orderId;
 
-    private String orderNumber;
+  private String orderNumber;
 
-    private OrderStatus status;
+  private OrderStatus status;
 
-    private BigDecimal totalAmount;
+  private BigDecimal totalAmount;
 
-    private LocalDateTime placedAt;
+  private LocalDateTime placedAt;
 
-    private List<OrderItemResponse> items;
-
+  private List<OrderItemResponse> items;
 }

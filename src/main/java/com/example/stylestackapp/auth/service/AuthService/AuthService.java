@@ -8,12 +8,11 @@ import com.example.stylestackapp.auth.dto.response.RefreshTokenResponseDto;
 
 public interface AuthService {
 
-    void Register(RegisterRequestDto requestDto);
+  void Register(RegisterRequestDto requestDto);
 
-    LoginResponseDto login(LoginRequestDto requestDto);
+  LoginResponseDto login(LoginRequestDto requestDto);
 
-    void logout(String accessToken);
+  void logout(String accessToken);
 
-    RefreshTokenResponseDto refreshToken(RefreshTokenRequestDto requestDto);
-
+  RefreshTokenResponseDto refreshToken(RefreshTokenRequestDto requestDto);
 }

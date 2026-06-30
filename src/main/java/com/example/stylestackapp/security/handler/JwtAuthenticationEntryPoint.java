@@ -1,4 +1,3 @@
 package com.example.stylestackapp.security.handler;
 
-public class JwtAuthenticationEntryPoint {
-}
+public class JwtAuthenticationEntryPoint {}

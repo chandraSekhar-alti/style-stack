@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProductRepo extends JpaRepository<Product, UUID> {
-    List<Product> findByIsActiveIsTrue();
+  List<Product> findByIsActiveIsTrue();
 
-    Page<Product> findByIsActiveIsTrue(Pageable pageable);
+  Page<Product> findByIsActiveIsTrue(Pageable pageable);
 
-    List<Product> findByCategoryId(UUID categoryId);
+  List<Product> findByCategoryId(UUID categoryId);
 }

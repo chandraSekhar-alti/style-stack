@@ -18,24 +18,19 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    @GetMapping("/me")
-    public ResponseEntity<ApiResponse<MeResponseDto>>
-    me(
-            @AuthenticationPrincipal
-            CustomUserPrincipal principal
-    ) {
-        MeResponseDto response =
-                userService.getCurrentUser(principal);
+  @GetMapping("/me")
+  public ResponseEntity<ApiResponse<MeResponseDto>> me(
+      @AuthenticationPrincipal CustomUserPrincipal principal) {
+    MeResponseDto response = userService.getCurrentUser(principal);
 
-        return ResponseEntity.ok(
-                ApiResponse.<MeResponseDto>builder()
-                        .success(true)
-                        .message("User details fetched successfully")
-                        .data(response)
-                        .timeStamp(LocalDateTime.now())
-                        .build()
-        );
-    }
+    return ResponseEntity.ok(
+        ApiResponse.<MeResponseDto>builder()
+            .success(true)
+            .message("User details fetched successfully")
+            .data(response)
+            .timeStamp(LocalDateTime.now())
+            .build());
+  }
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.UUID)
+  private UUID id;
 }

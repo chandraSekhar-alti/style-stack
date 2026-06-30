@@ -10,10 +10,9 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    CheckoutResponse checkout(CustomUserPrincipal principal);
+  CheckoutResponse checkout(CustomUserPrincipal principal);
 
-    List<OrderSummaryResponse> getOrders(CustomUserPrincipal principal);
+  List<OrderSummaryResponse> getOrders(CustomUserPrincipal principal);
 
-    OrderDetailsResponse getOrder(UUID orderId, CustomUserPrincipal principal);
-
+  OrderDetailsResponse getOrder(UUID orderId, CustomUserPrincipal principal);
 }

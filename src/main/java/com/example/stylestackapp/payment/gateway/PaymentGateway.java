@@ -7,8 +7,7 @@ import com.example.stylestackapp.payment.entity.Payment;
 
 public interface PaymentGateway {
 
-    PaymentMethod getPaymentMethod();
+  PaymentMethod getPaymentMethod();
 
-    PaymentLinkResponse createPaymentLink(Order order, Payment payment) throws Exception;
-
+  PaymentLinkResponse createPaymentLink(Order order, Payment payment) throws Exception;
 }

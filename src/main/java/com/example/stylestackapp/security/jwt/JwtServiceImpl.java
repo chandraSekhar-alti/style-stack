@@ -22,121 +22,93 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class JwtServiceImpl implements JwtService {
 
-    @Value("${jwt.secret}")
-    private String secret;
+  @Value("${jwt.secret}")
+  private String secret;
 
-    @Value("${jwt.expiration}")
-    private long jwtExpiration;
+  @Value("${jwt.expiration}")
+  private long jwtExpiration;
 
-    @Value("${jwt.refresh-expiration}")
-    private long refreshExpiration;
+  @Value("${jwt.refresh-expiration}")
+  private long refreshExpiration;
 
-    private SecretKey secretKey;
+  private SecretKey secretKey;
 
-    @PostConstruct
-    public void init() {
-        this.secretKey =
-                Keys.hmacShaKeyFor(
-                        secret.getBytes(StandardCharsets.UTF_8)
-                );
-    }
+  @PostConstruct
+  public void init() {
+    this.secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
+  }
 
-    @Override
-    public String generateAccessToken(User user) {
+  @Override
+  public String generateAccessToken(User user) {
 
-        Map<String, Object> claims = new HashMap<>();
+    Map<String, Object> claims = new HashMap<>();
 
-        String jwtId = UUID.randomUUID().toString();
+    String jwtId = UUID.randomUUID().toString();
 
-        claims.put(
-                "roles",
-                user.getRoles()
-                        .stream()
-                        .map(Role::getName)
-                        .toList()
-        );
+    claims.put("roles", user.getRoles().stream().map(Role::getName).toList());
 
-        claims.put("jwtId", jwtId);
+    claims.put("jwtId", jwtId);
 
-        return buildToken(
-                claims,
-                user.getEmail(),
-                jwtExpiration
-        );
-    }
+    return buildToken(claims, user.getEmail(), jwtExpiration);
+  }
 
-    @Override
-    public String generateRefreshToken(User user) {
+  @Override
+  public String generateRefreshToken(User user) {
 
-        return buildToken(
-                new HashMap<>(),
-                user.getEmail(),
-                refreshExpiration
-        );
-    }
+    return buildToken(new HashMap<>(), user.getEmail(), refreshExpiration);
+  }
 
-    @Override
-    public String extractUserName(String token) {
+  @Override
+  public String extractUserName(String token) {
 
-        return extractAllClaims(token)
-                .getSubject();
-    }
+    return extractAllClaims(token).getSubject();
+  }
 
-    @Override
-    public boolean isTokenValid(String token, User user) {
+  @Override
+  public boolean isTokenValid(String token, User user) {
 
-        String username = extractUserName(token);
+    String username = extractUserName(token);
 
-        return username.equals(user.getEmail())
-                && !isTokenExpired(token);
-    }
+    return username.equals(user.getEmail()) && !isTokenExpired(token);
+  }
 
-    private String buildToken(Map<String, Object> claims, String subject, long expiration) {
+  private String buildToken(Map<String, Object> claims, String subject, long expiration) {
 
-        Date now = new Date();
+    Date now = new Date();
 
-        Date expiryDate = new Date(now.getTime() + expiration);
+    Date expiryDate = new Date(now.getTime() + expiration);
 
-        return Jwts.builder()
-                .claims(claims)
-                .subject(subject)
-                .issuedAt(now)
-                .expiration(expiryDate)
-                .signWith(secretKey)
-                .compact();
-    }
+    return Jwts.builder()
+        .claims(claims)
+        .subject(subject)
+        .issuedAt(now)
+        .expiration(expiryDate)
+        .signWith(secretKey)
+        .compact();
+  }
 
-    private boolean isTokenExpired(String token) {
+  private boolean isTokenExpired(String token) {
 
-        return extractAllClaims(token)
-                .getExpiration()
-                .before(new Date());
-    }
+    return extractAllClaims(token).getExpiration().before(new Date());
+  }
 
-    private Claims extractAllClaims(String token) {
+  private Claims extractAllClaims(String token) {
 
-        return Jwts.parser()
-                .verifyWith(secretKey)
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-    }
+    return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload();
+  }
 
-    @Override
-    public String extractJwtId(String token) {
-        return extractAllClaims(token).get("jwtId", String.class);
-    }
+  @Override
+  public String extractJwtId(String token) {
+    return extractAllClaims(token).get("jwtId", String.class);
+  }
 
-    @Override
-    public boolean isTokenValid(String token, UserDetails userDetails){
-        return extractUserName(token)
-                .equals(
-                        userDetails.getUsername())
-                && !isTokenExpired(token);
-    }
+  @Override
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    return extractUserName(token).equals(userDetails.getUsername()) && !isTokenExpired(token);
+  }
 
-    @Override
-    public boolean isRefreshTokenValid(String token, User user) {
-        return isTokenValid(token, user);
-    }
+  @Override
+  public boolean isRefreshTokenValid(String token, User user) {
+    return isTokenValid(token, user);
+  }
 }

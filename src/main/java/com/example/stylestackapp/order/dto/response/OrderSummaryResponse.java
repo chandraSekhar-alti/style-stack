@@ -14,14 +14,13 @@ import java.util.UUID;
 @Builder
 public class OrderSummaryResponse {
 
-    private UUID orderId;
+  private UUID orderId;
 
-    private String orderNumber;
+  private String orderNumber;
 
-    private OrderStatus orderStatus;
+  private OrderStatus orderStatus;
 
-    private BigDecimal totalAmount;
+  private BigDecimal totalAmount;
 
-    private LocalDateTime placedAt;
-
+  private LocalDateTime placedAt;
 }

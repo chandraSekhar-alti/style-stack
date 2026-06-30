@@ -16,27 +16,26 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class Product extends AuditableEntity {
 
-    @Column(nullable = false, length = 200)
-    private String name;
+  @Column(nullable = false, length = 200)
+  private String name;
 
-    @Column(length = 2000)
-    private String description;
+  @Column(length = 2000)
+  private String description;
 
-    @Column(nullable = false, precision = 12, scale = 2)
-    private BigDecimal price;
+  @Column(nullable = false, precision = 12, scale = 2)
+  private BigDecimal price;
 
-    @Column(name = "stock_quantity", nullable = false)
-    private Integer stockQuantity;
+  @Column(name = "stock_quantity", nullable = false)
+  private Integer stockQuantity;
 
-    @Column(name = "image_url")
-    private String imageUrl;
+  @Column(name = "image_url")
+  private String imageUrl;
 
-    @Builder.Default
-    @Column(name = "active", nullable = false)
-    private boolean isActive = true;
+  @Builder.Default
+  @Column(name = "active", nullable = false)
+  private boolean isActive = true;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
-
+  @ManyToOne
+  @JoinColumn(name = "category_id", nullable = false)
+  private Category category;
 }

@@ -9,8 +9,7 @@ import lombok.*;
 @Builder
 public class RefreshTokenResponseDto {
 
-    private String accessToken;
+  private String accessToken;
 
-    private String tokenType;
-
+  private String tokenType;
 }

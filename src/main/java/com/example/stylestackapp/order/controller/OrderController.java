@@ -18,68 +18,51 @@ import java.util.UUID;
 @RequestMapping("/api/v1/orders")
 public class OrderController {
 
-    private final OrderService orderService;
+  private final OrderService orderService;
 
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
+  public OrderController(OrderService orderService) {
+    this.orderService = orderService;
+  }
 
-    @PostMapping("/checkout")
-    public ResponseEntity<ApiResponse<CheckoutResponse>> checkout(
-            @AuthenticationPrincipal
-            CustomUserPrincipal principal
-    ) {
-        CheckoutResponse checkoutResponse = orderService.checkout(principal);
-        return ResponseEntity.ok(
-                ApiResponse.<CheckoutResponse>builder()
-                        .success(true)
-                        .data(checkoutResponse)
-                        .message("Checkout completed successfully")
-                        .build()
-        );
-    }
+  @PostMapping("/checkout")
+  public ResponseEntity<ApiResponse<CheckoutResponse>> checkout(
+      @AuthenticationPrincipal CustomUserPrincipal principal) {
+    CheckoutResponse checkoutResponse = orderService.checkout(principal);
+    return ResponseEntity.ok(
+        ApiResponse.<CheckoutResponse>builder()
+            .success(true)
+            .data(checkoutResponse)
+            .message("Checkout completed successfully")
+            .build());
+  }
 
+  @GetMapping
+  public ResponseEntity<ApiResponse<List<OrderSummaryResponse>>> getOrders(
+      @AuthenticationPrincipal CustomUserPrincipal principal) {
 
-    @GetMapping
-    public ResponseEntity<
-            ApiResponse<List<OrderSummaryResponse>>>
-    getOrders(
-            @AuthenticationPrincipal
-            CustomUserPrincipal principal
-    ) {
+    List<OrderSummaryResponse> response = orderService.getOrders(principal);
 
-        List<OrderSummaryResponse> response = orderService.getOrders(principal);
+    return ResponseEntity.ok(
+        ApiResponse.<List<OrderSummaryResponse>>builder()
+            .success(true)
+            .message("Orders fetched successfully")
+            .data(response)
+            .timeStamp(LocalDateTime.now())
+            .build());
+  }
 
-        return ResponseEntity.ok(
-                ApiResponse
-                        .<List<OrderSummaryResponse>>builder()
-                        .success(true)
-                        .message("Orders fetched successfully")
-                        .data(response)
-                        .timeStamp(LocalDateTime.now())
-                        .build()
-        );
-    }
+  @GetMapping("/{orderId}")
+  public ResponseEntity<ApiResponse<OrderDetailsResponse>> getOrder(
+      @PathVariable UUID orderId, @AuthenticationPrincipal CustomUserPrincipal principal) {
 
-    @GetMapping("/{orderId}")
-    public ResponseEntity<
-            ApiResponse<OrderDetailsResponse>>
-    getOrder(
-            @PathVariable UUID orderId,
-            @AuthenticationPrincipal
-            CustomUserPrincipal principal
-    ) {
+    OrderDetailsResponse response = orderService.getOrder(orderId, principal);
 
-        OrderDetailsResponse response = orderService.getOrder(orderId, principal);
-
-        return ResponseEntity.ok(
-                ApiResponse
-                        .<OrderDetailsResponse>builder()
-                        .success(true)
-                        .message("Order fetched successfully")
-                        .data(response)
-                        .timeStamp(LocalDateTime.now())
-                        .build()
-        );
-    }
+    return ResponseEntity.ok(
+        ApiResponse.<OrderDetailsResponse>builder()
+            .success(true)
+            .message("Order fetched successfully")
+            .data(response)
+            .timeStamp(LocalDateTime.now())
+            .build());
+  }
 }

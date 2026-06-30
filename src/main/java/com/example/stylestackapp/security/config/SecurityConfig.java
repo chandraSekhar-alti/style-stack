@@ -18,34 +18,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws  Exception{
-        return httpSecurity
-                .csrf(AbstractHttpConfigurer::disable)
-
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS))
-
-                .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers(
-                                        "/api/v1/auth/**",
-                                        "/swagger-ui/**",
-                                        "/v3/api-docs/**")
-                                .permitAll()
-
-                                .anyRequest()
-                                .authenticated()
-                )
-
-                .addFilterBefore(
-                        jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class
-                )
-
-                .build();
-    }
+  @Bean
+  SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    return httpSecurity
+        .csrf(AbstractHttpConfigurer::disable)
+        .sessionManagement(
+            session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests(
+            auth ->
+                auth.requestMatchers("/api/v1/auth/**", "/swagger-ui/**", "/v3/api-docs/**")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated())
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .build();
+  }
 }

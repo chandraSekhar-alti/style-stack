@@ -32,137 +32,126 @@ import java.util.Optional;
 @Transactional
 public class AuthServiceImpl implements AuthService {
 
-    private final UserRepo userRepo;
-    private final UserSessionRepo userSessionRepo;
-    private final RoleRepo roleRepo;
-    private final PasswordEncoder passwordEncoder;
+  private final UserRepo userRepo;
+  private final UserSessionRepo userSessionRepo;
+  private final RoleRepo roleRepo;
+  private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticationManager authenticationManager;
-    private final JwtService jwtService;
+  private final AuthenticationManager authenticationManager;
+  private final JwtService jwtService;
 
-    @Override
-    public void Register(RegisterRequestDto requestDto) {
-        if (userRepo.existsByEmail(requestDto.getEmail())) {
-            throw new DuplicateResourceException("User with email " + requestDto.getEmail() + " already exists");
-        }
-
-        Role customerRole = roleRepo.
-                findByName(
-                        RoleName.ROLE_CUSTOMER
-                ).orElseThrow(() -> new ResourceNotFoundException("Role not found"));
-
-        User savedUser = User.builder()
-                .firstName(requestDto.getFirstName())
-                .lastName(requestDto.getLastName())
-                .email(requestDto.getEmail())
-                .password(
-                        passwordEncoder.encode(requestDto.getPassword()))
-                .enabled(true)
-                .emailVerified(false)
-                .accountNonLocked(true)
-                .build();
-
-        savedUser.getRoles().add(customerRole);
-
-        userRepo.save(savedUser);
+  @Override
+  public void Register(RegisterRequestDto requestDto) {
+    if (userRepo.existsByEmail(requestDto.getEmail())) {
+      throw new DuplicateResourceException(
+          "User with email " + requestDto.getEmail() + " already exists");
     }
 
-    @Override
-    @Transactional
-    public LoginResponseDto login(LoginRequestDto requestDto) {
+    Role customerRole =
+        roleRepo
+            .findByName(RoleName.ROLE_CUSTOMER)
+            .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
 
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        requestDto.getEmail(),
-                        requestDto.getPassword()
-                )
-        );
+    User savedUser =
+        User.builder()
+            .firstName(requestDto.getFirstName())
+            .lastName(requestDto.getLastName())
+            .email(requestDto.getEmail())
+            .password(passwordEncoder.encode(requestDto.getPassword()))
+            .enabled(true)
+            .emailVerified(false)
+            .accountNonLocked(true)
+            .build();
 
-        Optional<User> optionalUser = userRepo.findByEmail(requestDto.getEmail());
+    savedUser.getRoles().add(customerRole);
 
-        if (optionalUser.isEmpty()) {
-            throw new ResourceNotFoundException("User with email " + requestDto.getEmail() + " not found");
-        }
+    userRepo.save(savedUser);
+  }
 
-        User user = optionalUser.get();
+  @Override
+  @Transactional
+  public LoginResponseDto login(LoginRequestDto requestDto) {
 
-        String accessToken = jwtService.generateAccessToken(user);
+    authenticationManager.authenticate(
+        new UsernamePasswordAuthenticationToken(requestDto.getEmail(), requestDto.getPassword()));
 
-        String refreshToken = jwtService.generateRefreshToken(user);
+    Optional<User> optionalUser = userRepo.findByEmail(requestDto.getEmail());
 
-        UserSession userSession =
-                UserSession.builder()
-                        .user(user)
-                        .accessTokenJti(
-                                jwtService.extractJwtId(accessToken)
-                        )
-                        .refreshToken(refreshToken)
-                        .active(true)
-                        .expiresAt(
-                                LocalDateTime.now().plusDays(7)
-                        )
-                        .build();
-
-        userSessionRepo.save(userSession);
-
-        return LoginResponseDto.builder()
-                .accessToken(accessToken)
-                .refreshToken(refreshToken)
-                .tokenType("Bearer")
-                .email(user.getEmail())
-                .build();
-
+    if (optionalUser.isEmpty()) {
+      throw new ResourceNotFoundException(
+          "User with email " + requestDto.getEmail() + " not found");
     }
 
+    User user = optionalUser.get();
 
-    @Override
-    @Transactional
-    public void logout(String accessToken) {
-        String jti = jwtService.extractJwtId(accessToken);
+    String accessToken = jwtService.generateAccessToken(user);
 
-        UserSession userSession = userSessionRepo.findByAccessTokenJti(jti)
-                .orElseThrow(() -> new ResourceNotFoundException("User session not found"));
+    String refreshToken = jwtService.generateRefreshToken(user);
 
-        userSession.setActive(false);
+    UserSession userSession =
+        UserSession.builder()
+            .user(user)
+            .accessTokenJti(jwtService.extractJwtId(accessToken))
+            .refreshToken(refreshToken)
+            .active(true)
+            .expiresAt(LocalDateTime.now().plusDays(7))
+            .build();
 
-        userSessionRepo.save(userSession);
+    userSessionRepo.save(userSession);
+
+    return LoginResponseDto.builder()
+        .accessToken(accessToken)
+        .refreshToken(refreshToken)
+        .tokenType("Bearer")
+        .email(user.getEmail())
+        .build();
+  }
+
+  @Override
+  @Transactional
+  public void logout(String accessToken) {
+    String jti = jwtService.extractJwtId(accessToken);
+
+    UserSession userSession =
+        userSessionRepo
+            .findByAccessTokenJti(jti)
+            .orElseThrow(() -> new ResourceNotFoundException("User session not found"));
+
+    userSession.setActive(false);
+
+    userSessionRepo.save(userSession);
+  }
+
+  @Override
+  @Transactional
+  public RefreshTokenResponseDto refreshToken(RefreshTokenRequestDto requestDto) {
+
+    UserSession userSession =
+        userSessionRepo
+            .findByRefreshToken(requestDto.getRefreshToken())
+            .orElseThrow(() -> new UnauthorizedException("Invalid refresh token"));
+
+    if (!userSession.isActive()) {
+      throw new UnauthorizedException("Refresh token is inactive");
     }
 
-    @Override
-    @Transactional
-    public RefreshTokenResponseDto refreshToken(RefreshTokenRequestDto requestDto) {
-
-        UserSession userSession = userSessionRepo
-                .findByRefreshToken(
-                        requestDto.getRefreshToken()
-                ).orElseThrow(() -> new UnauthorizedException("Invalid refresh token"));
-
-        if(!userSession.isActive()){
-            throw new UnauthorizedException("Refresh token is inactive");
-        }
-
-        if(userSession.getExpiresAt().isBefore(LocalDateTime.now())){
-            throw new UnauthorizedException("Refresh token has expired");
-        }
-
-        if(!jwtService.isRefreshTokenValid(
-                requestDto.getRefreshToken(),
-                userSession.getUser()
-        )){
-            throw new UnauthorizedException("Invalid refresh token");
-        }
-
-        String newAccessToken = jwtService.generateAccessToken(userSession.getUser());
-
-        userSession.setAccessTokenJti(
-                jwtService.extractJwtId(newAccessToken)
-        );
-
-        userSessionRepo.save(userSession);
-
-        return RefreshTokenResponseDto.builder()
-                .accessToken(newAccessToken)
-                .tokenType("Bearer")
-                .build();
+    if (userSession.getExpiresAt().isBefore(LocalDateTime.now())) {
+      throw new UnauthorizedException("Refresh token has expired");
     }
+
+    if (!jwtService.isRefreshTokenValid(requestDto.getRefreshToken(), userSession.getUser())) {
+      throw new UnauthorizedException("Invalid refresh token");
+    }
+
+    String newAccessToken = jwtService.generateAccessToken(userSession.getUser());
+
+    userSession.setAccessTokenJti(jwtService.extractJwtId(newAccessToken));
+
+    userSessionRepo.save(userSession);
+
+    return RefreshTokenResponseDto.builder()
+        .accessToken(newAccessToken)
+        .tokenType("Bearer")
+        .build();
+  }
 }

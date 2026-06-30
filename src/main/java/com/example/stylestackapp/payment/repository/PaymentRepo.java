@@ -9,9 +9,6 @@ import java.util.UUID;
 
 public interface PaymentRepo extends JpaRepository<Payment, UUID> {
 
-    Optional<Payment> findFirstByOrderIdAndPaymentStatusOrderByCreatedAtDesc(
-            UUID orderId,
-            PaymentStatus paymentStatus
-    );
-
+  Optional<Payment> findFirstByOrderIdAndPaymentStatusOrderByCreatedAtDesc(
+      UUID orderId, PaymentStatus paymentStatus);
 }

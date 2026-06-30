@@ -1,6 +1,5 @@
 package com.example.stylestackapp.category.dto.request;
 
-
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,12 +10,12 @@ import java.util.UUID;
 @Setter
 public class CreateCategoryRequest {
 
-    @NotBlank
-    private String name;
+  @NotBlank
+  private String name;
 
-    private String description;
+  private String description;
 
-    private String imageUrl;
+  private String imageUrl;
 
-    private UUID parentCategoryId;
+  private UUID parentCategoryId;
 }

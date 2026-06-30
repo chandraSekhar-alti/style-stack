@@ -1,14 +1,13 @@
 package com.example.stylestackapp.common.enums;
 
 public enum PaymentStatus {
+  PENDING,
 
-    PENDING,
+  SUCCESS,
 
-    SUCCESS,
+  FAILED,
 
-    FAILED,
+  CANCELLED,
 
-    CANCELLED,
-
-    EXPIRED
+  EXPIRED
 }

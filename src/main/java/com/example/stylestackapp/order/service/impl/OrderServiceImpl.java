@@ -34,157 +34,145 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-    private final OrderRepo orderRepo;
-    private final OrderItemRepo orderItemRepo;
-    private final CartRepo cartRepo;
-    private final CartItemRepo cartItemRepo;
+  private final OrderRepo orderRepo;
+  private final OrderItemRepo orderItemRepo;
+  private final CartRepo cartRepo;
+  private final CartItemRepo cartItemRepo;
 
+  @Override
+  @Transactional
+  public CheckoutResponse checkout(CustomUserPrincipal principal) {
+    Cart cart =
+        cartRepo
+            .findByUserIdAndStatus(principal.getUserId(), CartStatus.ACTIVE)
+            .orElseThrow(() -> new BusinessException("Cart not found"));
 
-    @Override
-    @Transactional
-    public CheckoutResponse checkout(CustomUserPrincipal principal) {
-        Cart cart = cartRepo.
-                findByUserIdAndStatus(principal.getUserId(), CartStatus.ACTIVE)
-                .orElseThrow(() -> new BusinessException("Cart not found"));
+    // Find Active Cart
+    List<CartItem> cartItems = cartItemRepo.findByCartId(cart.getId());
 
-        //Find Active Cart
-        List<CartItem> cartItems = cartItemRepo.
-                findByCartId(cart.getId());
-
-        //Validate Empty Cart
-        if (cartItems.isEmpty()) {
-            throw new BusinessException("Cart is empty");
-        }
-
-        // Validate Stock
-        for (CartItem cartItem : cartItems) {
-            Product product = cartItem.getProduct();
-
-            if (cartItem.getQuantity() > product.getStockQuantity()) {
-                throw new BusinessException("Insufficient stock for product");
-            }
-        }
-
-        //Calculate Total
-        BigDecimal totalAmount = cartItems.stream()
-                .map(item ->
-                        item.getProduct()
-                                .getPrice()
-                                .multiply(
-                                        BigDecimal.valueOf(
-                                                item.getQuantity()
-                                        )
-                                )
-                ).reduce(
-                        BigDecimal.ZERO,
-                        BigDecimal::add
-                );
-
-        //Generate Order Number
-        String orderNumber = "ORD-" + System.currentTimeMillis();
-
-        //Create Order
-        Order order = Order.builder()
-                .user(principal.getUser())
-                .orderNumber(orderNumber)
-                .status(
-                        OrderStatus.PENDING_PAYMENT
-                )
-                .totalAmount(totalAmount)
-                .placedAt(LocalDateTime.now())
-                .build();
-
-        Order savedOrder = orderRepo.save(order);
-
-        //Create Order Items
-        List<OrderItem> orderItems = new ArrayList<>();
-
-        for (CartItem cartItem : cartItems) {
-            BigDecimal price = cartItem.getProduct().getPrice();
-
-            BigDecimal subTotal =
-                    price.multiply(
-                            BigDecimal.valueOf(
-                                    cartItem.getQuantity()));
-
-            //Create Item
-            OrderItem orderItem = OrderItem.builder()
-                    .order(savedOrder)
-                    .product(
-                            cartItem.getProduct()
-                    )
-                    .quantity(
-                            cartItem.getQuantity()
-                    )
-                    .price(price)
-                    .subTotal(subTotal)
-                    .build();
-
-            orderItems.add(orderItem);
-            orderItemRepo.saveAll(orderItems);
-
-        }
-
-        return CheckoutResponse.builder()
-                .orderId(savedOrder.getId())
-                .orderNumber(savedOrder.getOrderNumber())
-                .totalAmount(savedOrder.getTotalAmount())
-                .orderStatus(savedOrder.getStatus())
-                .build();
+    // Validate Empty Cart
+    if (cartItems.isEmpty()) {
+      throw new BusinessException("Cart is empty");
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public List<OrderSummaryResponse> getOrders(CustomUserPrincipal principal) {
-        List<Order> orders = orderRepo.findByUserId(principal.getUserId());
+    // Validate Stock
+    for (CartItem cartItem : cartItems) {
+      Product product = cartItem.getProduct();
 
-        return orders.stream()
-                .map(order ->
-                        OrderSummaryResponse.builder()
-                                .orderId(order.getId())
-                                .orderNumber(order.getOrderNumber())
-                                .orderStatus(order.getStatus())
-                                .totalAmount(order.getTotalAmount())
-                                .placedAt(order.getPlacedAt())
-                                .build()
-                ).toList();
+      if (cartItem.getQuantity() > product.getStockQuantity()) {
+        throw new BusinessException("Insufficient stock for product");
+      }
     }
 
-    @Override
-    @Transactional(readOnly = true)
-    public OrderDetailsResponse getOrder(UUID orderId, CustomUserPrincipal principal) {
+    // Calculate Total
+    BigDecimal totalAmount =
+        cartItems.stream()
+            .map(
+                item ->
+                    item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())))
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        //Find Order
-        Order order = orderRepo.findById(orderId).orElseThrow(() ->
-                new ResourceNotFoundException("Order not found")
-        );
+    // Generate Order Number
+    String orderNumber = "ORD-" + System.currentTimeMillis();
 
-        //Ownership Validation
-        if (!order.getUser().getId().equals(principal.getUserId())) {
-            throw new UnauthorizedException("You are not authorized to access this order");
-        }
+    // Create Order
+    Order order =
+        Order.builder()
+            .user(principal.getUser())
+            .orderNumber(orderNumber)
+            .status(OrderStatus.PENDING_PAYMENT)
+            .totalAmount(totalAmount)
+            .placedAt(LocalDateTime.now())
+            .build();
 
-        //Load Order Items
-        List<OrderItem> orderItems = orderItemRepo.findByOrderId(orderId);
+    Order savedOrder = orderRepo.save(order);
 
-        //Map Items
-        List<OrderItemResponse> itemResponses = orderItems.stream()
-                .map(item ->
-                        OrderItemResponse.builder()
-                                .productName(item.getProduct().getName())
-                                .quantity(item.getQuantity())
-                                .price(item.getPrice())
-                                .subTotal(item.getSubTotal())
-                                .build()
-                ).toList();
+    // Create Order Items
+    List<OrderItem> orderItems = new ArrayList<>();
 
-        return OrderDetailsResponse.builder()
-                .orderId(order.getId())
-                .orderNumber((order.getOrderNumber()))
-                .status(order.getStatus())
-                .totalAmount(order.getTotalAmount())
-                .placedAt(order.getPlacedAt())
-                .items(itemResponses)
-                .build();
+    for (CartItem cartItem : cartItems) {
+      BigDecimal price = cartItem.getProduct().getPrice();
+
+      BigDecimal subTotal = price.multiply(BigDecimal.valueOf(cartItem.getQuantity()));
+
+      // Create Item
+      OrderItem orderItem =
+          OrderItem.builder()
+              .order(savedOrder)
+              .product(cartItem.getProduct())
+              .quantity(cartItem.getQuantity())
+              .price(price)
+              .subTotal(subTotal)
+              .build();
+
+      orderItems.add(orderItem);
+      orderItemRepo.saveAll(orderItems);
     }
+
+    return CheckoutResponse.builder()
+        .orderId(savedOrder.getId())
+        .orderNumber(savedOrder.getOrderNumber())
+        .totalAmount(savedOrder.getTotalAmount())
+        .orderStatus(savedOrder.getStatus())
+        .build();
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public List<OrderSummaryResponse> getOrders(CustomUserPrincipal principal) {
+    List<Order> orders = orderRepo.findByUserId(principal.getUserId());
+
+    return orders.stream()
+        .map(
+            order ->
+                OrderSummaryResponse.builder()
+                    .orderId(order.getId())
+                    .orderNumber(order.getOrderNumber())
+                    .orderStatus(order.getStatus())
+                    .totalAmount(order.getTotalAmount())
+                    .placedAt(order.getPlacedAt())
+                    .build())
+        .toList();
+  }
+
+  @Override
+  @Transactional(readOnly = true)
+  public OrderDetailsResponse getOrder(UUID orderId, CustomUserPrincipal principal) {
+
+    // Find Order
+    Order order =
+        orderRepo
+            .findById(orderId)
+            .orElseThrow(() -> new ResourceNotFoundException("Order not found"));
+
+    // Ownership Validation
+    if (!order.getUser().getId().equals(principal.getUserId())) {
+      throw new UnauthorizedException("You are not authorized to access this order");
+    }
+
+    // Load Order Items
+    List<OrderItem> orderItems = orderItemRepo.findByOrderId(orderId);
+
+    // Map Items
+    List<OrderItemResponse> itemResponses =
+        orderItems.stream()
+            .map(
+                item ->
+                    OrderItemResponse.builder()
+                        .productName(item.getProduct().getName())
+                        .quantity(item.getQuantity())
+                        .price(item.getPrice())
+                        .subTotal(item.getSubTotal())
+                        .build())
+            .toList();
+
+    return OrderDetailsResponse.builder()
+        .orderId(order.getId())
+        .orderNumber((order.getOrderNumber()))
+        .status(order.getStatus())
+        .totalAmount(order.getTotalAmount())
+        .placedAt(order.getPlacedAt())
+        .items(itemResponses)
+        .build();
+  }
 }

@@ -10,8 +10,7 @@ import java.util.UUID;
 @Setter
 public class CreatePaymentLinkRequest {
 
-    private UUID orderId;
+  private UUID orderId;
 
-    private PaymentMethod paymentMethod;
-
+  private PaymentMethod paymentMethod;
 }

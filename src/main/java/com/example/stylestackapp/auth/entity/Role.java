@@ -11,11 +11,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Role extends AuditableEntity{
+public class Role extends AuditableEntity {
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
-    private RoleName name;
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, unique = true)
+  private RoleName name;
 
-    private String description;
+  private String description;
 }

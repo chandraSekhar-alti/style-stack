@@ -29,165 +29,149 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
 
-    private final CartRepo cartRepo;
-    private final CartItemRepo cartItemRepo;
-    private final ProductRepo productRepo;
+  private final CartRepo cartRepo;
+  private final CartItemRepo cartItemRepo;
+  private final ProductRepo productRepo;
 
+  @Override
+  @Transactional
+  public void addToCart(AddToCartRequest cartRequest, CustomUserPrincipal principal) {
+    Product product =
+        productRepo
+            .findById(cartRequest.getProductId())
+            .orElseThrow(
+                () ->
+                    new ResourceNotFoundException(
+                        "Product not found with id : " + cartRequest.getProductId()));
 
-    @Override
-    @Transactional
-    public void addToCart(AddToCartRequest cartRequest, CustomUserPrincipal principal) {
-        Product product = productRepo.
-                findById(cartRequest.getProductId())
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Product not found with id : " + cartRequest.getProductId())
-                );
+    if (!product.isActive()) {
+      throw new BusinessException("Product is currently unavailable");
+    }
 
-        if (!product.isActive()) {
-            throw new BusinessException(
-                    "Product is currently unavailable");
-        }
+    Cart cart =
+        cartRepo
+            .findByUserIdAndStatus(principal.getUserId(), CartStatus.ACTIVE)
+            .orElseGet(
+                () -> {
+                  Cart newCart =
+                      Cart.builder().user(principal.getUser()).status(CartStatus.ACTIVE).build();
 
-        Cart cart = cartRepo
-                .findByUserIdAndStatus(
-                        principal.getUserId(),
-                        CartStatus.ACTIVE)
-                .orElseGet(() -> {
-
-                    Cart newCart = Cart.builder()
-                            .user(principal.getUser())
-                            .status(CartStatus.ACTIVE)
-                            .build();
-
-                    return cartRepo.save(newCart);
+                  return cartRepo.save(newCart);
                 });
 
-        Optional<CartItem> existingCartItem =
-                cartItemRepo.findByCartIdAndProductId(
-                        cart.getId(),
-                        product.getId());
+    Optional<CartItem> existingCartItem =
+        cartItemRepo.findByCartIdAndProductId(cart.getId(), product.getId());
 
-        if (existingCartItem.isPresent()) {
+    if (existingCartItem.isPresent()) {
 
-            CartItem cartItem = existingCartItem.get();
+      CartItem cartItem = existingCartItem.get();
 
-            int newQuantity =
-                    cartItem.getQuantity()
-                            + cartRequest.getQuantity();
+      int newQuantity = cartItem.getQuantity() + cartRequest.getQuantity();
 
-            if (newQuantity > product.getStockQuantity()) {
-                throw new BusinessException(
-                        "Insufficient stock available");
-            }
+      if (newQuantity > product.getStockQuantity()) {
+        throw new BusinessException("Insufficient stock available");
+      }
 
-            cartItem.setQuantity(newQuantity);
-            cartItemRepo.save(cartItem);
+      cartItem.setQuantity(newQuantity);
+      cartItemRepo.save(cartItem);
 
-        }else {
-            CartItem cartItem = CartItem.builder()
-                    .cart(cart)
-                    .product(product)
-                    .quantity(cartRequest.getQuantity())
-                    .build();
+    } else {
+      CartItem cartItem =
+          CartItem.builder()
+              .cart(cart)
+              .product(product)
+              .quantity(cartRequest.getQuantity())
+              .build();
 
-            cartItemRepo.save(cartItem);
-        }
+      cartItemRepo.save(cartItem);
+    }
+  }
+
+  @Override
+  public CartResponse getCart(CustomUserPrincipal principal) {
+    Optional<Cart> cartOptional =
+        cartRepo.findByUserIdAndStatus(principal.getUserId(), CartStatus.ACTIVE);
+
+    if (cartOptional.isEmpty()) {
+
+      return CartResponse.builder().items(List.of()).totalAmount(BigDecimal.ZERO).build();
     }
 
-    @Override
-    public CartResponse getCart(CustomUserPrincipal principal) {
-        Optional<Cart> cartOptional =
-                cartRepo.findByUserIdAndStatus(
-                        principal.getUserId(),
-                        CartStatus.ACTIVE);
+    Cart cart = cartOptional.get();
 
+    List<CartItem> cartItems = cartItemRepo.findByCartId(cart.getId());
 
-        if (cartOptional.isEmpty()) {
-
-            return CartResponse.builder()
-                    .items(List.of())
-                    .totalAmount(BigDecimal.ZERO)
-                    .build();
-        }
-
-        Cart cart = cartOptional.get();
-
-        List<CartItem> cartItems = cartItemRepo.findByCartId(cart.getId());
-
-        List<CartItemResponse> itemResponses = cartItems.stream()
-                .map(cartItem -> {
-                    BigDecimal subTotal =
-                            cartItem.getProduct()
-                                    .getPrice()
-                                    .multiply(
-                                            BigDecimal.valueOf(
-                                                    cartItem.getQuantity()));
-                    return CartItemResponse.builder()
-                            .cartItemId(cartItem.getId())
-                            .productId(cartItem.getProduct().getId())
-                            .productName(cartItem.getProduct().getName())
-                            .price(cartItem.getProduct().getPrice())
-                            .quantity(cartItem.getQuantity())
-                            .subTotal(subTotal)
-                            .build();
+    List<CartItemResponse> itemResponses =
+        cartItems.stream()
+            .map(
+                cartItem -> {
+                  BigDecimal subTotal =
+                      cartItem
+                          .getProduct()
+                          .getPrice()
+                          .multiply(BigDecimal.valueOf(cartItem.getQuantity()));
+                  return CartItemResponse.builder()
+                      .cartItemId(cartItem.getId())
+                      .productId(cartItem.getProduct().getId())
+                      .productName(cartItem.getProduct().getName())
+                      .price(cartItem.getProduct().getPrice())
+                      .quantity(cartItem.getQuantity())
+                      .subTotal(subTotal)
+                      .build();
                 })
-                .toList();
+            .toList();
 
-        BigDecimal totalAmount =
-                itemResponses.stream()
-                        .map(CartItemResponse::getSubTotal)
-                        .reduce(
-                                BigDecimal.ZERO,
-                                BigDecimal::add);
+    BigDecimal totalAmount =
+        itemResponses.stream()
+            .map(CartItemResponse::getSubTotal)
+            .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-        return CartResponse.builder()
-                .items(itemResponses)
-                .totalAmount(totalAmount)
-                .build();
+    return CartResponse.builder().items(itemResponses).totalAmount(totalAmount).build();
+  }
 
+  @Override
+  @Transactional
+  public void removeCartItem(UUID cartItemId, CustomUserPrincipal principal) {
+
+    CartItem cartItem =
+        cartItemRepo
+            .findById(cartItemId)
+            .orElseThrow(() -> new ResourceNotFoundException("Cart item not found"));
+
+    if (!cartItem.getCart().getUser().getId().equals(principal.getUserId())) {
+      throw new BusinessException("You cannot remove another user's cart item");
     }
 
-    @Override
-    @Transactional
-    public void removeCartItem(
-            UUID cartItemId,
-            CustomUserPrincipal principal) {
+    cartItemRepo.delete(cartItem);
+    log.info("Cart item removed. userId={}, cartItemId={}", principal.getUserId(), cartItemId);
+  }
 
-        CartItem cartItem = cartItemRepo.findById(cartItemId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Cart item not found"));
+  @Override
+  @Transactional
+  public void updateQuantity(UUID cartItemId, Integer quantity, CustomUserPrincipal principal) {
 
-        if (!cartItem.getCart().getUser().getId().equals(principal.getUserId())) {
-            throw new BusinessException(
-                    "You cannot remove another user's cart item");
-        }
+    CartItem cartItem =
+        cartItemRepo
+            .findById(cartItemId)
+            .orElseThrow(() -> new ResourceNotFoundException("Cart item not found"));
 
-        cartItemRepo.delete(cartItem);
-        log.info("Cart item removed. userId={}, cartItemId={}", principal.getUserId(), cartItemId);
+    if (!cartItem.getCart().getUser().getId().equals(principal.getUserId())) {
+      throw new BusinessException("You cannot update another user's cart item");
     }
 
-    @Override
-    @Transactional
-    public void updateQuantity(UUID cartItemId, Integer quantity, CustomUserPrincipal principal) {
+    Product product = cartItem.getProduct();
 
-        CartItem cartItem = cartItemRepo.findById(cartItemId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Cart item not found"));
-
-        if (!cartItem.getCart().getUser().getId().equals(principal.getUserId())) {
-            throw new BusinessException("You cannot update another user's cart item");
-        }
-
-        Product product = cartItem.getProduct();
-
-        if (quantity > product.getStockQuantity()) {
-            throw new BusinessException("Insufficient stock available");
-        }
-
-        cartItem.setQuantity(quantity);
-
-        cartItemRepo.save(cartItem);
-        log.info("Cart quantity updated. userId={}, cartItemId={}, quantity={}", principal.getUserId(), cartItemId, quantity);
+    if (quantity > product.getStockQuantity()) {
+      throw new BusinessException("Insufficient stock available");
     }
+
+    cartItem.setQuantity(quantity);
+
+    cartItemRepo.save(cartItem);
+    log.info(
+        "Cart quantity updated. userId={}, cartItemId={}, quantity={}",
+        principal.getUserId(),
+        cartItemId,
+        quantity);
+  }
 }

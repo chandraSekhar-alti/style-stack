@@ -12,8 +12,7 @@ import java.util.List;
 @Builder
 public class CartResponse {
 
-    private List<CartItemResponse> items;
+  private List<CartItemResponse> items;
 
-    private BigDecimal totalAmount;
-
+  private BigDecimal totalAmount;
 }

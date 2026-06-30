@@ -8,13 +8,11 @@ import java.util.UUID;
 
 public interface CartService {
 
-    void addToCart(AddToCartRequest cartRequest, CustomUserPrincipal principal);
+  void addToCart(AddToCartRequest cartRequest, CustomUserPrincipal principal);
 
-    CartResponse getCart(CustomUserPrincipal principal);
+  CartResponse getCart(CustomUserPrincipal principal);
 
-    void removeCartItem(UUID cartItemId, CustomUserPrincipal principal);
+  void removeCartItem(UUID cartItemId, CustomUserPrincipal principal);
 
-    void updateQuantity(UUID cartItemId, Integer quantity, CustomUserPrincipal principal);
-
+  void updateQuantity(UUID cartItemId, Integer quantity, CustomUserPrincipal principal);
 }
-

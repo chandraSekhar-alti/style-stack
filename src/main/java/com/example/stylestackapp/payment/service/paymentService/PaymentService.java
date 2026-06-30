@@ -6,9 +6,6 @@ import com.example.stylestackapp.security.service.CustomUserPrincipal;
 
 public interface PaymentService {
 
-    PaymentLinkResponse generatePaymentLink(
-            CreatePaymentLinkRequest request,
-            CustomUserPrincipal principal
-    ) throws Exception;
-
+  PaymentLinkResponse generatePaymentLink(
+      CreatePaymentLinkRequest request, CustomUserPrincipal principal) throws Exception;
 }
